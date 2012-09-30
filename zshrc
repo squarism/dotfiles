@@ -21,7 +21,7 @@ ZSH_THEME="gallifrey"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 # COMPLETION_WAITING_DOTS="true"
@@ -35,9 +35,14 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export PATH=~/bin:~/local/bin:/usr/local/sbin:/usr/local/bin:~/node_modules/coffee-script/bin:$PATH
+export PATH=$HOME/.rbenv/bin:/usr/local/share/npm/bin:$PATH
 
 export TERM="xterm-256color"
 
 # node version manager
 source ~/.nvm/nvm.sh
 
+# never forget global gemset in rbenv @joefiorini
+write-gemset () {
+  echo "$1 global" > .rbenv-gemsets
+}
