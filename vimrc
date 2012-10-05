@@ -136,7 +136,7 @@ nnoremap j gj
 nnoremap k gk
 
 imap jk <ESC>
-nnoremap ; :
+" nnoremap ; :
 
 " Search
 nmap <Space> /
@@ -147,9 +147,9 @@ vnoremap / /\v
 nnoremap <leader><space> :noh<cr>
 
 " Saving and buffer stuff
-nmap <leader><ESC> :q!<CR>
-nmap <leader>q :wqa!<CR>
-nmap <leader>w :w!<CR>
+" nmap <leader><ESC> :q!<CR>
+" nmap <leader>q :wqa!<CR>
+" nmap <leader>w :w!<CR>
 
 " Switch between / delete buffers
 noremap <tab> :bn<CR>
