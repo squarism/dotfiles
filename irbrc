@@ -5,6 +5,9 @@
 #  your irb and script/console ruby shell
 #  more pretty and productive
 #
+#  Used to use wirble, then brice.  Now
+#  using pry as irb.  @squarism
+#
 # *****************************************
 
 
@@ -13,57 +16,6 @@ ARGV.concat [ "--readline" ]
 IRB.conf[:SAVE_HISTORY] = 1000
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-history"
 IRB.conf[:PROMPT_MODE] = :SIMPLE
-
-# ----------------------------------------
-#  Most stuff depends on Rubygems being loaded
-# ----------------------------------------
-  begin
-    require 'rubygems'
-  rescue LoadError => err
-    warn "Couldn't load Rubygems: #{err}"
-  end
-
-# ----------------------------------------
-#  Method to clean up hash output
-# ----------------------------------------
-  begin
-    require 'pp'
-  rescue LoadError => err
-    #warn "Couldn't load Pretty-Print: #{err}"
-  end
-
-# ----------------------------------------
-#  Awesome Print is Awesome
-# ----------------------------------------
-  begin
-    require 'ap'
-  rescue LoadError => err
-    #warn "Coundn't load Awesome Print: #{err}"
-  end
-
-# ----------------------------------------
-#  Tab completion
-# ----------------------------------------
-  begin
-    require 'irb/completion'
-  rescue LoadError => err
-    #warn "Couldn't load irb/completion: #{err}"
-  end
-
-# load wirble
-begin
-  require 'wirble'
-
-  Wirble.init
-  Wirble.colorize
-
-  # customize the colors a bit
-  colors = Wirble::Colorize.colors.merge({ :string => :dark_gray })
-  Wirble::Colorize.colors = colors
-rescue LoadError => err
-  #warn "Couldn't load wirble. That might be ok if you're using a gemset.
-  #  Otherwise, gem install wirble."
-end
 
 # ---------------------------------------
 #  Hirb - Pretty ActiveRecord tables in a
@@ -184,11 +136,3 @@ end
     result
   end
 
-# ---------------------------------------
-#  Rot13 cipher
-# ---------------------------------------
-  class String
-    def rot13
-      tr "A-Za-z", "N-ZA-Mn-za-m"
-    end
-  end
