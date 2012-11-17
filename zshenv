@@ -50,3 +50,10 @@ unsetopt SHARE_HISTORY
 #   echo "WARNING: Can't find virtualenvwrapper.sh"
 # fi
 
+# GIT AUTHOR INFO
+# ----------------------------------------------
+# export GIT_AUTHOR_NAME='CHANGEME'
+# export GIT_AUTHOR_EMAIL='changeme@changeme.com'
+# export GIT_COMMITTER_NAME='CHANGEME'
+# export GIT_COMMITTER_EMAIL='changeme@changeme.com'
+
