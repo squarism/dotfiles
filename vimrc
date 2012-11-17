@@ -4,6 +4,7 @@
 
 set nocompatible
 filetype off
+scriptencoding utf8
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
