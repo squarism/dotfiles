@@ -6,7 +6,7 @@ rm ~/.vimrc
 echo "Symlinking dotfiles into home (including new vimrc)..."
 dotfiles=( gemrc irbrc profile rbenv-version tmux.conf vimrc zshenv zshrc )
 for dotfile in "${dotfiles[@]}"; do
-  ln -s ~/dotfiles/${dotfile} ~/.${dotfile}
+  cp ~/dotfiles/${dotfile} ~/.${dotfile}
   if [ $? -eq "1" ]; then break; fi
 done
 
@@ -21,3 +21,6 @@ done
 echo
 echo "Change your IRC handles in ~/.irssi/config "
 echo "Change your IRC handles in ~/.weechat/irc.conf"
+
+echo
+echo "Change your Git author info in ~/.zshenv"
