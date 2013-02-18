@@ -1,0 +1,4 @@
+# Change CFLAGS below to your CPU type
+#   for example: http://en.gentoo-wiki.com/wiki/Safe_Cflags/Intel
+# rvm_configure_env=(CFLAGS="-march=nocona -O2 -pipe")
+rvm_gemset_create_on_use_flag=1

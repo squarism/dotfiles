@@ -72,8 +72,8 @@ set nobackup
 set noeol
 set nofoldenable
 set noswapfile
-set number
-set numberwidth=4
+set nonumber
+"set numberwidth=4
 set ruler
 set shell=/bin/bash
 set shiftwidth=2
@@ -136,7 +136,7 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-imap jk <ESC>
+" imap jk <ESC>
 " nnoremap ; :
 
 " Search
