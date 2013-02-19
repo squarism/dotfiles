@@ -47,10 +47,13 @@ The main thing I need from this is .local_methods.  Call it on any object and it
 RVM
 -----
 The rvmrc file included will create gemsets on use.  My workflow looks like this:
+
   * Create a file named .versions.conf in the root of the project.  The file
     will look this:
-    `ruby=default
-    ruby-gemset=project_name`
+
+        ruby=default
+        ruby-gemset=project_name
+
   * You can also use rvmrc formatted files if you wish but the community is
     trying to standardize on one format that will work for rbenv & rvm &
     others.  Just make sure to use your default ruby instead of specifying the
@@ -60,6 +63,8 @@ The rvmrc file included will create gemsets on use.  My workflow looks like this
 
 I also included a CFLAGS example in ~/.rvmrc that can be tweaked so that native C extension
 gems might get a speed boost.
-  * `rvm_configure_env=(CFLAGS="-march=nocona -O2 -pipe")
+
+    rvm_configure_env=(CFLAGS="-march=nocona -O2 -pipe")
     # look up your CPU at gentoo
-    # http://en.gentoo-wiki.com/wiki/Safe_Cflags/Intel`
+    # http://en.gentoo-wiki.com/wiki/Safe_Cflags/Intel
+
