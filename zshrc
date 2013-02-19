@@ -41,25 +41,8 @@ source $ZSH/oh-my-zsh.sh
 # `brew install autojump`
 [[ -f `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
-# Customize to your needs...
-export PATH=~/bin:~/local/bin:/usr/local/sbin:/usr/local/bin:$PATH
-export TERM="xterm-256color"
 
 
-# NODE.JS
-# -------------------------------
-# node version manager
-# source ~/.nvm/nvm.sh
-export PATH=~/node_modules/coffee-script/bin:/usr/local/share/npm/bin:$PATH
+# Everything else in ~/.zshenv
 
 
-# RUBY SPECIFICS
-# -------------------------------
-# never forget global gemset in rbenv @joefiorini
-write-gemset () {
-  echo "$1 global" > .rbenv-gemsets
-}
-export PATH=$HOME/.rbenv/bin:$PATH
-
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

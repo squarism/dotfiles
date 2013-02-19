@@ -1,3 +1,21 @@
+export PATH=~/bin:~/local/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export TERM="xterm-256color"
+
+
+# NODE.JS
+# -------------------------------
+# node version manager
+# source ~/.nvm/nvm.sh
+export PATH=~/node_modules/coffee-script/bin:/usr/local/share/npm/bin:$PATH
+
+
+# RUBY SPECIFICS
+# -------------------------------
+# never forget global gemset in rbenv @joefiorini
+# write-gemset () {
+#   echo "$1 global" > .rbenv-gemsets
+# }
+# export PATH=$HOME/.rbenv/bin:$PATH
 # from ryan.mcgeary.org
 alias b="bundle"
 alias bi="b install --path vendor"
@@ -12,19 +30,19 @@ alias vi=vim
 
 # RBENV
 # ----------------------------------------------
-export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
-# ruby-build plugin for rbenvand etc
-if [ -d "$HOME/local/bin" ] ; then
-  PATH="$HOME/local/bin:$PATH"
-fi
-alias gemset='rbenv gemset active'
+# export PATH=$HOME/.rbenv/bin:$PATH
+# eval "$(rbenv init -)"
+# # ruby-build plugin for rbenvand etc
+# if [ -d "$HOME/local/bin" ] ; then
+#   PATH="$HOME/local/bin:$PATH"
+# fi
+# alias gemset='rbenv gemset active'
 
 
 # RVM
 # ----------------------------------------------
-# source ~/.rvm/scripts/rvm
-# alias gemset='rvm gemset name'
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+alias gemset='rvm gemset name'
 
 
 # ZSH tweaks
