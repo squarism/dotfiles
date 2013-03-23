@@ -8,8 +8,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="clean"
-ZSH_THEME="squarism"
+ZSH_THEME="gallifrey"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -56,10 +55,19 @@ export PATH=~/node_modules/coffee-script/bin:/usr/local/share/npm/bin:$PATH
 # RUBY SPECIFICS
 # -------------------------------
 # never forget global gemset in rbenv @joefiorini
-write-gemset () {
-  echo "$1 global" > .rbenv-gemsets
-}
-export PATH=$HOME/.rbenv/bin:$PATH
+# write-gemset () {
+#   echo "$1 global" > .rbenv-gemsets
+# }
+# export PATH=$HOME/.rbenv/bin:$PATH
 
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+# i don't like shared history between shells
+unsetopt SHARE_HISTORY
+
+# amazon web services
+export JAVA_HOME="$(/usr/libexec/java_home)"
+export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
+export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
+export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
