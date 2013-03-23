@@ -1,4 +1,16 @@
-# from ryan.mcgeary.org
+export PATH=~/bin:~/local/bin:/usr/local/sbin:/usr/local/bin:$PATH
+export TERM="xterm-256color"
+
+
+# NODE.JS
+# -------------------------------
+# node version manager
+# source ~/.nvm/nvm.sh  # uncomment this if you use nvm
+export PATH=~/node_modules/coffee-script/bin:/usr/local/share/npm/bin:$PATH
+
+
+# RUBY SPECIFICS
+# -------------------------------
 alias b="bundle"
 alias bi="b install --path vendor"
 alias bil="bi --local"
@@ -10,21 +22,11 @@ alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 alias vi=vim
 
 
-# RBENV
-# ----------------------------------------------
-export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
-# ruby-build plugin for rbenvand etc
-if [ -d "$HOME/local/bin" ] ; then
-  PATH="$HOME/local/bin:$PATH"
-fi
-alias gemset='rbenv gemset active'
-
-
 # RVM
 # ----------------------------------------------
-# source ~/.rvm/scripts/rvm
-# alias gemset='rvm gemset name'
+source $HOME/.rvm/scripts/rvm
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+alias gemset='rvm gemset name'
 
 
 # ZSH tweaks
@@ -49,6 +51,12 @@ unsetopt SHARE_HISTORY
 # else
 #   echo "WARNING: Can't find virtualenvwrapper.sh"
 # fi
+
+# play! framework for scala
+# ---------------------------------------------
+# on a mac, you have to keep updating this with java updates.  :(
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home/
+path+=~/local/play-2.0.4
 
 # GIT AUTHOR INFO
 # ----------------------------------------------

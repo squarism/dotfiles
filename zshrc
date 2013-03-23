@@ -32,7 +32,7 @@ DISABLE_AUTO_TITLE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git textmate ruby bundler autojump)
+plugins=(git textmate autojump)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -40,34 +40,6 @@ source $ZSH/oh-my-zsh.sh
 # `brew install autojump`
 [[ -f `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
-# Customize to your needs...
-export PATH=~/bin:~/local/bin:/usr/local/sbin:/usr/local/bin:$PATH
-export TERM="xterm-256color"
 
+# Everything else in ~/.zshenv
 
-# NODE.JS
-# -------------------------------
-# node version manager
-# source ~/.nvm/nvm.sh
-export PATH=~/node_modules/coffee-script/bin:/usr/local/share/npm/bin:$PATH
-
-
-# RUBY SPECIFICS
-# -------------------------------
-# never forget global gemset in rbenv @joefiorini
-# write-gemset () {
-#   echo "$1 global" > .rbenv-gemsets
-# }
-# export PATH=$HOME/.rbenv/bin:$PATH
-
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-# i don't like shared history between shells
-unsetopt SHARE_HISTORY
-
-# amazon web services
-export JAVA_HOME="$(/usr/libexec/java_home)"
-export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
-export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
-export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
