@@ -6,7 +6,7 @@ My hipsterware stack.
   * zsh - Awesome shell.  Needs oh-my-zsh.
   * tmux - Beats screen.  Easy split mode and pane switching.
   * vim config that uses codegram/vimfiles setup.
-  * rbenv - For managing multiple ruby installs.
+  * rvm - For managing multiple ruby installs. I flip-flop on rbenv vs rvm.
   * weechat and irssi IRC defaults.
   * gemrc - Gets rid of documentation on Ruby gems.
   * irbrc - Ruby REPL niceness.
@@ -44,6 +44,27 @@ Irbrc
 -----
 The main thing I need from this is .local_methods.  Call it on any object and it will tell you what are "interesting methods".  Usually this list is unique enough to jog your memory or use it as a learning tool when using a new gem or API.
 
-Rbenv
+RVM
 -----
-I put this minor file just to remind me not to use RVM.  I switched off gemsets in RVM and Rbenv because it was getting weird.  Bundler handles everything but obviously you lose the per-project library seperation.
+The rvmrc file included will create gemsets on use.  My workflow looks like this:
+
+  * Create a file named .versions.conf in the root of the project.  The file
+    will look this:
+
+        ruby=default
+        ruby-gemset=project_name
+
+  * You can also use rvmrc formatted files if you wish but the community is
+    trying to standardize on one format that will work for rbenv & rvm &
+    others.  Just make sure to use your default ruby instead of specifying the
+    ruby version name.  Otherwise, when you upgrade ruby all your projects will
+    be using an older ruby version and you might get an error.  Use default by
+    default and then override it if you need to.
+
+I also included a CFLAGS example in ~/.rvmrc that can be tweaked so that native C extension
+gems might get a speed boost.
+
+    rvm_configure_env=(CFLAGS="-march=nocona -O2 -pipe")
+    # look up your CPU at gentoo
+    # http://en.gentoo-wiki.com/wiki/Safe_Cflags/Intel
+
