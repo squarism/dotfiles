@@ -1,4 +1,4 @@
-PROMPT='%{$fg_bold[green]%}%p%{$fg[cyan]%}%c%{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
+PROMPT='[%m %{$fg_bold[green]%}%p%{$fg[cyan]%}%c%{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}%{$reset_color%}] '
 
 if which rvm-prompt &> /dev/null; then
   RPROMPT='%{$reset_color%} %{$fg[yellow]%}$(~/.rvm/bin/rvm-prompt i v g) %{$reset_color%}'
