@@ -40,7 +40,8 @@ Bundle 'hced/bufkill-vim'
 
 " Default color theme
 Bundle 'sjl/badwolf'
-colorscheme badwolf
+Bundle 'chriskempson/vim-tomorrow-theme'
+colorscheme Tomorrow
 
 " ------------
 " VIM SETTINGS
