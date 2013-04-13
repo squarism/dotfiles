@@ -21,6 +21,15 @@ alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 # handle case where older vi is installed (esp linux)
 alias vi=vim
 
+# I used to use the ZSH git plugin but don't know how to customize it
+# So I just copied all the aliases I use often
+alias g='git'
+alias gca='git commit -v -a'
+alias gss='git status -s'
+alias gst='git status'
+alias glg='git log --graph --oneline --all --abbrev-commit --decorate'
+alias glgg='git log --graph --max-count=5'
+
 
 # RVM
 # ----------------------------------------------
