@@ -28,7 +28,7 @@ alias gca='git commit -v -a'
 alias gss='git status -s'
 alias gst='git status'
 alias glg='git log --graph --oneline --all --abbrev-commit --decorate'
-alias glgg='git log --graph --max-count=5'
+alias glgg='git log --graph --max-count=15'
 
 
 # RVM
