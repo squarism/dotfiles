@@ -65,7 +65,7 @@ unsetopt SHARE_HISTORY
 # ---------------------------------------------
 # on a mac, you have to keep updating this with java updates.  :(
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home/
-path+=~/local/play-2.0.4
+# path+=~/local/play-2.0.4
 
 # GIT AUTHOR INFO
 # ----------------------------------------------
@@ -75,7 +75,7 @@ path+=~/local/play-2.0.4
 # export GIT_COMMITTER_EMAIL='changeme@changeme.com'
 
  # amazon web services
- export JAVA_HOME="$(/usr/libexec/java_home)"
- export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
- export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
- export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
+ # export JAVA_HOME="$(/usr/libexec/java_home)"
+ # export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
+ # export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
+ # export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
