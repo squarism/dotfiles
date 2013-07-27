@@ -1,12 +1,14 @@
 #!/bin/env bash
 
-echo "Removing .vimrc..."
-rm ~/.vimrc
+if [ -f ~/.vimrc ]; then
+	echo "Removing .vimrc..."
+	rm ~/.vimrc
+fi
 
 echo "Copying dotfiles into home (including new vimrc)..."
-dotfiles=( gemrc irbrc profile rvmrc tmux.conf vimrc zshenv zshrc )
+dotfiles=( gemrc irbrc profile rvmrc tmux.conf vimrc zshenv)
 for dotfile in "${dotfiles[@]}"; do
-  cp ~/dotfiles/${dotfile} ~/.${dotfile}
+  cp ${dotfile} ~/.${dotfile}
   if [ $? -eq "1" ]; then break; fi
 done
 
@@ -32,3 +34,23 @@ echo "Change your IRC handles in ~/.weechat/irc.conf"
 echo
 echo "Change your Git author info in ~/.zshenv"
 echo "Also take a look at .zshenv for all customizations ..."
+
+
+# os specific hooks
+###################
+platform='unknown'
+unamestr=`uname`
+
+if [[ "$unamestr" == 'Linux' ]]; then
+	platform='linux'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+	platform='mac'
+fi
+
+if [[ $platform == 'linux' ]]; then
+	cp zshrc.linux ~/.zshrc
+fi
+
+if [[ $platform == 'mac' ]]; then
+	cp zshrc.mac ~/.zshrc
+fi
