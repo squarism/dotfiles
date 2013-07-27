@@ -3,11 +3,10 @@
 " Source: https://github.com/codegram/vimfiles
 
 set nocompatible
-filetype off
-scriptencoding utf8
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+Bundle 'gmarik/vundle'
 
 " ----------
 " Leader key
@@ -18,9 +17,9 @@ let maplocalleader = "."
 " -------
 " BUNDLES
 " -------
-Bundle 'gmarik/vundle'
 
-Bundle 'mileszs/ack.vim'
+Bundle 'rking/ag.vim'
+Bundle 'thoughtbot/vim-rspec'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-endwise'
 Bundle 'Townk/vim-autoclose'
@@ -31,23 +30,30 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-cucumber'
-Bundle 'bbommarito/vim-slim'
+Bundle 'leebo/vim-slim'
+Bundle 'rking/vim-ruby-refactoring'
+Bundle 'tpope/vim-dispatch'
+Bundle 'airblade/vim-gitgutter'
 
+Bundle 'nono/vim-handlebars'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/nerdtree'
 
 Bundle 'vim-scripts/ctags.vim'
-Bundle 'hced/bufkill-vim'
+Bundle 'mrxd/bufkill.vim'
+Bundle 'vim-ruby/vim-ruby'
+" Bundle 'scrooloose/syntastic'
+
+Bundle 'codegram/vim-haml2slim'
 
 " Default color theme
 Bundle 'sjl/badwolf'
-Bundle 'chriskempson/vim-tomorrow-theme'
-colorscheme Tomorrow
+colorscheme badwolf
 
 " ------------
 " VIM SETTINGS
 " ------------
-syntax on
-filetype plugin indent on
 
 set autoindent
 set autoread
@@ -73,8 +79,8 @@ set nobackup
 set noeol
 set nofoldenable
 set noswapfile
-set nonumber
-"set numberwidth=4
+set number
+set numberwidth=4
 set ruler
 set shell=/bin/bash
 set shiftwidth=2
@@ -83,7 +89,7 @@ set showmatch
 set smartcase
 set tabstop=2
 set softtabstop=2
-set notitle
+set title
 set encoding=utf-8
 set scrolloff=3
 set autoindent
@@ -95,14 +101,14 @@ set visualbell
 set cursorline
 set ttyfast
 set textwidth=78
-set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.gitkeep
-set grepprg=ack
+set wildignore+=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.gitkeep,.DS_Store
 set textwidth=79
 set formatoptions=n
 set colorcolumn=79
 set tw=79
 set t_Co=256
 set iskeyword-=_
+set clipboard=unnamed
 
 if has("gui_running")
     set guioptions-=T " no toolbar set guioptions-=m " no menus
@@ -137,8 +143,8 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-" imap jk <ESC>
-" nnoremap ; :
+imap jk <ESC>
+nnoremap ; :
 
 " Search
 nmap <Space> /
@@ -149,9 +155,9 @@ vnoremap / /\v
 nnoremap <leader><space> :noh<cr>
 
 " Saving and buffer stuff
-" nmap <leader><ESC> :q!<CR>
-" nmap <leader>q :wqa!<CR>
-" nmap <leader>w :w!<CR>
+nmap <leader><ESC> :q!<CR>
+nmap <leader>q :wqa!<CR>
+nmap <leader>w :w!<CR>
 
 " Switch between / delete buffers
 noremap <tab> :bn<CR>
@@ -171,22 +177,10 @@ nnoremap <C-l> <C-w>l
 set pastetoggle=<F2>
 
 " Git blame
-vmap <Leader>gb :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p<CR>
+vmap <leader>gb :Gblame<CR>
 
 " Execute current buffer as ruby
-map <leader>r :!ruby -I"lib:test" %<cr>
-
-" Tab autocompletes / indents depending on the context
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-p>"
-  endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
+" map <leader>r :!ruby -I"lib:test" %<cr>
 
 " Rename current file
 function! RenameFile()
@@ -213,11 +207,15 @@ function! RunTests(filename)
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     if match(a:filename, '\.feature') != -1
-      exec ":!cucumber " . a:filename
-    elseif match(a:filename, '_spec\.rb') != -1
-      exec ":!rspec " . a:filename
-    elseif match(a:filename, '_test\.rb') != -1
-      exec ":!ruby -I'lib:test' " . a:filename
+      exec ":!bundle exec spinach " . a:filename
+    else
+      if filereadable("script/test")
+        exec ":!script/test " . a:filename
+      elseif match(a:filename, '_test\.rb') != -1
+        exec ":!ruby -I'lib:test' " . a:filename
+      elseif match(a:filename, '_spec\.rb') != -1
+        exec ":!rspec --color --drb " . a:filename
+      end
     end
 endfunction
 
@@ -257,12 +255,11 @@ map <leader>T :call RunNearestTest()<CR>
 " ----------------
 
 " Powerline (fancy status bar)
-" let g:Powerline_symbols = 'compatible'
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_cache_enabled = 1
 
-" Ack (Regex-based search)
-nmap <leader>a :Ack
+" Ag (Regex-based search)
+nmap <leader>a :Ag
 " Rotating among results
 map <C-n> :cn<CR>
 map <C-p> :cp<CR>
@@ -281,7 +278,7 @@ let g:AutoCloseProtectedRegions = ["Character"]
 " Ctags
 " You can use Ctrl-] to jump to a function.... Ctrl-p will jump back
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-map <C-p> :pop<CR>
+" map <C-p> :pop<CR>
 
 " You can cycle through multiple function definitions using
 " these mappings. This maps to my windows key + left/right arrows
@@ -290,12 +287,22 @@ map <F9> :tprev<CR>
 
 " Ctrl-p
 let g:ctrlp_map = '<leader>o'
+let g:ctrlp_custom_ignore = '\v[\/](doc|tmp|log|coverage)$'
 
 " NERDtree
 nmap <silent> <leader>p :NERDTreeToggle<cr>%
 " Surround
 " ,' switches ' and "
 nnoremap <leader>' ""yls<c-r>={'"': "'", "'": '"'}[@"]<cr><esc>
+
+" Syntastic
+let g:syntastic_check_on_open=0
+let g:syntastic_echo_current_error=0
+let g:syntastic_auto_jump=0
+let g:syntastic_auto_loc_list=0
+
+" Haml2Slim
+nnoremap <leader>h2s :call Haml2Slim(bufname("%"))<CR>
 
 " --------------------
 " CUSTOM CONFIGURATION
@@ -304,3 +311,29 @@ let my_home = expand("$HOME/")
 if filereadable(my_home . '.vimrc.local')
   source ~/.vimrc.local
 endif
+
+if &term =~ '256color'
+  " Disable Background Color Erase (BCE) so that color schemes
+  " work properly when Vim is used inside tmux and GNU screen.
+  " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
+let g:clojure_align_multiline_strings = 1
+
+colorscheme badwolf
+
+nmap gh <Plug>GitGutterNextHunk
+nmap gH <Plug>GitGutterPrevHunk
+
+syntax on
+filetype indent plugin on
+
+" Vim dispatch
+autocmd FileType ruby
+      \ if expand('%') =~# '_test\.rb$' |
+      \   compiler rubyunit | setl makeprg=testrb\ \"%:p\" |
+      \ elseif expand('%') =~# '_spec\.rb$' |
+      \   compiler rspec | setl makeprg=bundle\ exec\ rspec\ \"%:p\" |
+      \ else |
+      \   compiler ruby | setl makeprg=ruby\ -wc\ \"%:p\" |
+      \ endif
