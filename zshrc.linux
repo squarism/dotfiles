@@ -32,18 +32,14 @@ DISABLE_AUTO_TITLE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(textmate autojump)
+plugins=(autojump)
 
 source $ZSH/oh-my-zsh.sh
 
 # Autojump support - takes you to common dir with j [space]
 # `brew install autojump`
-[[ -f `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+# [[ -f /usr/local/etc/autojump.sh ]] && . /usr/local/etc/autojump.sh
 
-
-source ~/.rvm/scripts/rvm
 
 # Everything else in ~/.zshenv
 
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
