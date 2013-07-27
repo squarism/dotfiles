@@ -41,5 +41,9 @@ source $ZSH/oh-my-zsh.sh
 [[ -f `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
 
+source ~/.rvm/scripts/rvm
+
 # Everything else in ~/.zshenv
 
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
