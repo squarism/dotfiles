@@ -9,7 +9,6 @@ My hipsterware stack.
   * rvm - For managing multiple ruby installs. I flip-flop on rbenv vs rvm.
   * weechat and irssi IRC defaults.
   * gemrc - Gets rid of documentation on Ruby gems.
-  * irbrc - Ruby REPL niceness.
   
 Install
 -------
@@ -39,10 +38,6 @@ I'm assuming a clean box here.  **Please** backup your files or really read what
 Tmux
 ----
 I stole so much from  sorin-ionescu/dot-files here.  I changed a few things here.  Like got rid of mouse switching.  Ctrl-L which normally clears the shell screen switches panes which is a minor concession.  Vim navigation all over the place.  It's well documented from sorin.
-
-Irbrc
------
-The main thing I need from this is .local_methods.  Call it on any object and it will tell you what are "interesting methods".  Usually this list is unique enough to jog your memory or use it as a learning tool when using a new gem or API.
 
 RVM
 -----
