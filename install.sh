@@ -6,7 +6,7 @@ if [ -f ~/.vimrc ]; then
 fi
 
 echo "Copying dotfiles into home (including new vimrc)..."
-dotfiles=( gemrc profile rvmrc tmux.conf vimrc zshenv)
+dotfiles=( gemrc profile rvmrc tmux.conf vimrc zshenv gitconfig )
 for dotfile in "${dotfiles[@]}"; do
   cp ${dotfile} ~/.${dotfile}
   if [ $? -eq "1" ]; then break; fi
