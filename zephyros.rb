@@ -18,7 +18,7 @@ end
 # pop to top of screen, halving height
 API.bind "K", move do
   move_window do |frame, screen|
-    frame.h = screen.h / 2
+    frame.h = screen.h / 2 - 24   # 24 is the titlebar of the osx app
     frame.y = 0
     frame.inset! padding, padding
   end
@@ -28,7 +28,7 @@ end
 API.bind "J", move do
   move_window do |frame, screen|
     frame.h = screen.h / 2
-    frame.y += screen.h / 2
+    frame.y += screen.h / 2 - 24  # 24 is the titlebar of the osx app
     frame.inset! padding, padding
   end
 end
