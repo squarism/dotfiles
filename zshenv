@@ -42,6 +42,7 @@ alias gemset='rvm gemset name'
 # ----------------------------------------------
 # i don't like shared history between shells
 unsetopt SHARE_HISTORY
+setopt no_share_history
 
 
 # PYTHON
