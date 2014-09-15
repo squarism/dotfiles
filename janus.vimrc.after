@@ -1,0 +1,66 @@
+"------------------------------------------------------------------------------
+"" use some color scheme
+let g:solarized_termcolors = 256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+
+set background=dark
+" set t_Co=256
+colorscheme jellybeans
+
+" ruby code lol
+set textwidth=99
+
+" Customize the gutter
+highlight clear SignColumn
+highlight GitGutterAdd ctermfg=green
+highlight GitGutterChange ctermfg=yellow
+highlight GitGutterDelete ctermfg=red
+highlight GitGutterChangeDelete ctermfg=yellow
+
+"------------------------------------------------------------------------------
+" anything else
+AirlineTheme jellybeans
+set cursorline
+
+" I like ,d as a quick way to close a buffer/file
+map <Leader>d :bd<CR>
+
+"------------------------------------------------------------------------------
+" Remap Command Keys from MacVim to something that will work in the terminal or iTerm2
+"------------------------------------------------------------------------------
+" Ctrl-p is mapped to Ctrl-p.  Wow.
+map <C-p> :CtrlPCurFile<CR>
+
+
+" Buffer related things
+"------------------------------------------------------------------------------
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+" Just show me the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+" Switching with the tab key
+" HEY -- try using the Unimpared plugin -->  ]b (next)  [b (previous)
+" noremap <tab> :bn<CR>
+" noremap <S-tab> :bp<CR>
+
+
+"------------------------------------------------------------------------------
+" HEY janus already has a shortcut -- Tagbar - (leader+rt)
+" nmap <F8> :TagbarToggle<CR>
+
+" ... but I inevitably end up killing NERDTree by accident
+" So this makes the ,n toggle work no matter what.
+nmap <silent> <Leader>n :call g:WorkaroundNERDTreeToggle()<CR>
+
+function! g:WorkaroundNERDTreeToggle()
+  try | :NERDTreeToggle | catch | :NERDTree | endtry
+endfunction
+
+
+"------------------------------------------------------------------------------
+" MacVim options - woo?
+"------------------------------------------------------------------------------
+" Disable scrollbars
+set guioptions-=L  " this does nerdtree
+set guioptions-=r  " this does the normal right one
