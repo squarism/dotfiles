@@ -1,4 +1,4 @@
-Me Dotfiles
+The Premier Hipsterware Dotfiles Repo™
 ===========
 
 My hipsterware stack.
