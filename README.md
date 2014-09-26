@@ -17,10 +17,12 @@ I'm assuming a clean box here.  **Please** backup your files or really read what
   * Get a version of ZSH 4.3.9+ installed (5.0.0 is ok too)
   * Get a version of Vim 7.3 installed (7.2 and older is not ok)
     * ./configure needs to have at least --features=big and --enable-multibyte
-    * I usually configure like this:
+    * I usually configure like this on a box with older packages:
     
-      `./configure --with-features=huge --enable-multibyte --enable-clipboard=yes --enable-xterm_clipboard=yes`
-    * If you installed vim with homebrew, skip all the above
+      `./configure --with-features=huge --enable-multibyte --prefix=$HOME/local`
+      * Then add ~/local/bin to your path
+    * If you can install 7.3 or newer with apt-get or yum, skip compiling.
+    * If you installed vim with homebrew, skip compiling.
   * Install [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) like normal
     * curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
   * Install [codegram/vimfiles](https://github.com/codegram/vimfiles) like normal (if you trust them there is a shorter step described on their github page)
