@@ -7,8 +7,6 @@
 projects = %w(
   ~/.vim/bundle/*
   ~/.oh-my-zsh
-  ~/.rbenv
-  ~/.rbenv/plugins/*
   ~/src/vendor/*
 )
 
@@ -44,3 +42,4 @@ projects.each do |proj|
 end
 
 update_homebrew
+`rvm get stable`
