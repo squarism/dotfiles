@@ -7,6 +7,7 @@ export TERM="xterm-256color"
 # node version manager
 # source ~/.nvm/nvm.sh  # uncomment this if you use nvm
 export PATH=~/node_modules/coffee-script/bin:/usr/local/share/npm/bin:$PATH
+alias gupl='gulp'  # argh, typos.
 
 
 # RUBY SPECIFICS
@@ -17,6 +18,7 @@ alias bil="bi --local"
 alias bu="b update"
 alias be="b exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
+alias gu="bundle exec guard -c"
 
 # handle case where older vi is installed (esp linux)
 alias vi=vim
@@ -62,11 +64,19 @@ setopt no_share_history
 #   echo "WARNING: Can't find virtualenvwrapper.sh"
 # fi
 
+
 # play! framework for scala
 # ---------------------------------------------
 # on a mac, you have to keep updating this with java updates.  :(
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home/
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_11.jdk/Contents/Home/
 # path+=~/local/play-2.0.4
+
+
+# GOLANG
+# ---------------------------------------------
+ export GOPATH=~/src/go
+ path+=~/src/go/bin
+
 
 # GIT AUTHOR INFO
 # ----------------------------------------------
@@ -80,3 +90,4 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home
  # export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
  # export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
  # export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
+
