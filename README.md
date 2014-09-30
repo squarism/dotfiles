@@ -9,7 +9,8 @@ My hipsterware stack.
   * rvm - For managing multiple ruby installs. I flip-flop on rbenv vs rvm.
   * weechat and irssi IRC defaults.
   * gemrc - Gets rid of documentation on Ruby gems.
-  
+
+
 Install
 -------
 I'm assuming a clean box here.  **Please** backup your files or really read what these things do.
@@ -18,7 +19,7 @@ I'm assuming a clean box here.  **Please** backup your files or really read what
   * Get a version of Vim 7.3 installed (7.2 and older is not ok)
     * ./configure needs to have at least --features=big and --enable-multibyte
     * I usually configure like this on a box with older packages:
-    
+
       `./configure --with-features=huge --enable-multibyte --prefix=$HOME/local`
       * Then add ~/local/bin to your path
     * If you can install 7.3 or newer with apt-get or yum, skip compiling.
@@ -34,34 +35,57 @@ I'm assuming a clean box here.  **Please** backup your files or really read what
     * bash install.sh  (destroys .vimrc)
   * Run vim install
     * vim -c 'BundleInstall'
-  
-    
+
 
 Tmux
 ----
 I stole so much from  sorin-ionescu/dot-files here.  I changed a few things here.  Like got rid of mouse switching.  Ctrl-L which normally clears the shell screen switches panes which is a minor concession.  Vim navigation all over the place.  It's well documented from sorin.
 
+
 RVM
 -----
-The rvmrc file included will create gemsets on use.  My workflow looks like this:
+I do not use RVM gemsets and instead prefer bundler/Gemfile.  It's only
+annoying for main-style scripts (since you don't have a project
+directory).
 
-  * Create a file named .versions.conf in the root of the project.  The file
-    will look this:
 
-        ruby=default
-        ruby-gemset=project_name
+Janus Vim
+-----
+If you use janus vim instead of the above vim config from codegram:
 
-  * You can also use rvmrc formatted files if you wish but the community is
-    trying to standardize on one format that will work for rbenv & rvm &
-    others.  Just make sure to use your default ruby instead of specifying the
-    ruby version name.  Otherwise, when you upgrade ruby all your projects will
-    be using an older ruby version and you might get an error.  Use default by
-    default and then override it if you need to.
+    cp janus.vimrc.after ~/.vimrc.after
 
-I also included a CFLAGS example in ~/.rvmrc that can be tweaked so that native C extension
-gems might get a speed boost.
+Download the jellybeans iTerm2 theme from [here](https://github.com/qtpi/Jellybeans.itermcolors)
 
-    rvm_configure_env=(CFLAGS="-march=nocona -O2 -pipe")
-    # look up your CPU at gentoo
-    # http://en.gentoo-wiki.com/wiki/Safe_Cflags/Intel
+    wget https://raw.githubusercontent.com/qtpi/Jellybeans.itermcolors/master/jellybeans.itermcolors
 
+
+Phoenix
+-----
+[Phoenix](https://github.com/jasonm23/phoenix) allows you to quickly
+arrange windows on OSX, sort of like Xmonad.  You'll need to install it
+first (the instructions are easy).  The
+[config I use](https://github.com/jasonm23/Phoenix-config/blob/master/.phoenix.litcoffee)
+is from the wiki there.  The original is in coffeescript and has to be
+compiled to JS.  The phoenix.js file in this repo is already convered
+and edited a little bit.  Here are the key-combinations I use everyday.
+
+> Ctrl-Shift starts everything.  By default, it's Ctrl-Alt-Cmd but this conflicts with TotalSpaces2.
+
+    Ctrl-Shift-Left Arrow = Push window to the left
+    Ctrl-Shift-Right Arrow = Push window to the right
+    
+    You can move a window into quads with these four keys:
+    Ctrl-Shift+ ...
+                   Screen Corners
+                  ----------------
+                  |  Q   |   W   |
+                  |  A   |   S   |
+                  ----------------
+                  
+The rest of the keys are on the wiki (with a nice diagram too).
+
+The installer does not copy this file as it's not really "unixy".  If you use Phoenix or just want to try using a nice starting config, copy it and Phoenix will automatically load it.
+
+	cp phoenix.js ~/.phoenix.js                  
+    

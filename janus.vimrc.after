@@ -29,8 +29,8 @@ map <Leader>d :bd<CR>
 "------------------------------------------------------------------------------
 " Remap Command Keys from MacVim to something that will work in the terminal or iTerm2
 "------------------------------------------------------------------------------
-" Ctrl-p is mapped to Ctrl-p.  Wow.
-map <C-p> :CtrlPCurFile<CR>
+" Ctrl-p is mapped to Ctrl-p.  Wow what a concept.
+map <C-p> :CtrlPCurWD<CR>
 
 
 " Buffer related things
