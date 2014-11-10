@@ -5,7 +5,7 @@
 # for example, rbenv & vim plugins
 
 projects = %w(
-  ~/.vim/bundle/*
+  ~/.janus/*
   ~/.oh-my-zsh
   ~/src/vendor/*
 )
@@ -29,6 +29,11 @@ def update_homebrew
   puts `brew cleanup`
 end
 
+def spacer
+  puts "-" * 65
+end
+
+puts "UPDATING ALL GIT REPOS"
 projects.each do |proj|
   # if a path ends in * then we need to go into each one and do a git pull
   if proj.match /\*$/
@@ -41,5 +46,18 @@ projects.each do |proj|
   end
 end
 
+puts "UPDATING HOMEBREW"
+spacer
 update_homebrew
+
+puts "UPDATING NPM"
+spacer
+`npm update`
+
+puts "UPDATING RVM"
+spacer
 `rvm get stable`
+
+puts "UPDATING GOLANG PACKAGES"
+spacer
+`go get -u all > /dev/null 2>&1`
