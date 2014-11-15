@@ -50,6 +50,11 @@ puts "UPDATING HOMEBREW"
 spacer
 update_homebrew
 
+puts "CLEARING CACHES"
+spacer
+`bower cache clean`
+`npm cache clean`
+
 puts "UPDATING NPM"
 spacer
 `npm update`
