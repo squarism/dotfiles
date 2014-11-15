@@ -13,7 +13,7 @@ GRID_WIDTH = 2;
 
 GRID_HEIGHT = 2;
 
-EDITOR = "Emacs";
+EDITOR = "vim";
 
 BROWSER = "Google Chrome";
 
@@ -516,104 +516,3 @@ key_binding('7', mash, function() {
   return App.focusOrStart(FINDER);
 });
 
-key_binding('V', mash, function() {
-  return App.focusOrStart(VIDEO);
-});
-
-key_binding('B', mash, function() {
-  return App.focusOrStart(MUSIC);
-});
-
-key_binding('5', mash, function() {
-  return switchLayout('Editor and Browser');
-});
-
-key_binding('4', mash, function() {
-  return switchLayout('Editor and Terminal');
-});
-
-key_binding('3', mash, function() {
-  return switchLayout('Terminal and Browser');
-});
-
-key_binding('2', mash, function() {
-  return switchLayout('Finder and Terminal');
-});
-
-key_binding('1', mash, function() {
-  return switchLayout('Finder and Browser');
-});
-
-key_binding('N', mash, function() {
-  return moveWindowToNextScreen();
-});
-
-key_binding('P', mash, function() {
-  return moveWindowToPreviousScreen();
-});
-
-key_binding('=', mash, function() {
-  return changeGridWidth(+1);
-});
-
-key_binding('-', mash, function() {
-  return changeGridWidth(-1);
-});
-
-key_binding('[', mash, function() {
-  return changeGridHeight(+1);
-});
-
-key_binding(']', mash, function() {
-  return changeGridHeight(-1);
-});
-
-key_binding(';', mash, function() {
-  return Window.focusedWindow().snapToGrid();
-});
-
-key_binding("'", mash, function() {
-  return Window.visibleWindows().map(function(win) {
-    return win.snapToGrid();
-  });
-});
-
-key_binding('H', mash, function() {
-  return moveWindowLeftOneColumn();
-});
-
-key_binding('K', mash, function() {
-  return windowUpOneRow();
-});
-
-key_binding('J', mash, function() {
-  return windowDownOneRow();
-});
-
-key_binding('L', mash, function() {
-  return moveWindowRightOneColumn();
-});
-
-key_binding('U', mash, function() {
-  return windowToFullHeight();
-});
-
-key_binding('I', mash, function() {
-  return windowShrinkOneGridColumn();
-});
-
-key_binding('O', mash, function() {
-  return windowGrowOneGridColumn();
-});
-
-key_binding(',', mash, function() {
-  return windowShrinkOneGridRow();
-});
-
-key_binding('.', mash, function() {
-  return windowGrowOneGridRow();
-});
-
-key_binding("`", mash, function() {
-  return api.runCommand("/usr/bin/open", ["https://gist.githubusercontent.com/jasonm23/4990cc1e02a3c2a8e159/raw/phoenix.keyboard.png"]);
-});
