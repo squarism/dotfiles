@@ -63,6 +63,7 @@ puts "UPDATING RVM"
 spacer
 `rvm get stable`
 
-puts "UPDATING GOLANG PACKAGES"
+puts "UPDATING GOLANG PACKAGES (silent)"
 spacer
 `go get -u all > /dev/null 2>&1`
+puts "Done with golang update."
