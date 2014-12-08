@@ -44,6 +44,10 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " noremap <tab> :bn<CR>
 " noremap <S-tab> :bp<CR>
 
+" Disable features forever
+"------------------------------------------------------------------------------
+" Get rid of ex/visual mode.
+:map Q <Nop>
 
 "------------------------------------------------------------------------------
 " HEY janus already has a shortcut -- Tagbar - (leader+rt)
