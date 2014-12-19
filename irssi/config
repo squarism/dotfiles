@@ -1,20 +1,20 @@
 servers = (
   { address = "eu.irc6.net"; chatnet = "IRCnet"; port = "6667"; },
   { address = "open.ircnet.net"; chatnet = "IRCnet"; port = "6667"; },
-  { 
+  {
     address = "chat.freenode.net";
     chatnet = "Freenode";
     port = "6667";
     autoconnect = "yes";
   },
   { address = "irc.efnet.org"; chatnet = "EFNet"; port = "6667"; },
-  { 
+  {
     address = "irc.undernet.org";
     chatnet = "Undernet";
     port = "6667";
   },
   { address = "irc.dal.net"; chatnet = "DALnet"; port = "6667"; },
-  { 
+  {
     address = "irc.quakenet.org";
     chatnet = "QuakeNet";
     port = "6667";
@@ -32,7 +32,23 @@ servers = (
 );
 
 chatnets = {
-  chatnets = { freenode = { type = "IRC"; nick = "CHANGEME"; }; };
+  IRCnet = { type = "IRC"; };
+  Freenode = {
+    type = "IRC";
+    nick = "CHANGEME";
+    username = "CHANGEME";
+    realname = "CHANGEME";
+  };
+  EFNet = { type = "IRC"; };
+  Undernet = { type = "IRC"; };
+  DALnet = { type = "IRC"; };
+  QuakeNet = { type = "IRC"; };
+  OFTC = { type = "IRC"; };
+  GameSurge = { type = "IRC"; };
+  WebChat = { type = "IRC"; };
+  Rizon = { type = "IRC"; };
+  LinkNet = { type = "IRC"; };
+  SILC = { type = "IRC"; };
 };
 
 channels = (
@@ -88,6 +104,7 @@ aliases = {
   ATAG = "WINDOW SERVER";
   UNSET = "set -clear";
   RESET = "set -default";
+  WK = "window kill";
 };
 
 statusbar = {
