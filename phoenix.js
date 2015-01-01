@@ -232,19 +232,19 @@ Window.prototype.toRightHalf = function() {
 };
 
 Window.prototype.toTopRight = function() {
-  return this.toGrid(0.5, 0, 0.5, 0.5);
+  return this.toGrid(0.7, 0, 0.3, 0.5);
 };
 
 Window.prototype.toBottomRight = function() {
-  return this.toGrid(0.5, 0.5, 0.5, 0.5);
+  return this.toGrid(0.7, 0.5, 0.3, 0.5);
 };
 
 Window.prototype.toTopLeft = function() {
-  return this.toGrid(0, 0, 0.5, 0.5);
+  return this.toGrid(0, 0, 0.3, 0.5);
 };
 
 Window.prototype.toBottomLeft = function() {
-  return this.toGrid(0, 0.5, 0.5, 0.5);
+  return this.toGrid(0, 0.5, 0.3, 0.5);
 };
 
 moveWindowToNextScreen = function() {
