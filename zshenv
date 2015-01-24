@@ -12,13 +12,11 @@ alias gupl='gulp'  # argh, typos.
 
 # RUBY SPECIFICS
 # -------------------------------
-alias b="bundle"
 alias bi="b install --path vendor"
 alias bil="bi --local"
-alias bu="b update"
 alias be="b exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
-alias gu="bundle exec guard -c"
+alias beg="bundle exec guard"
 
 # handle case where older vi is installed (esp linux)
 alias vi=vim
@@ -35,7 +33,6 @@ alias glgg='git log --graph --max-count=15'
 
 # RVM
 # ----------------------------------------------
-source $HOME/.rvm/scripts/rvm
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 alias gemset='rvm gemset name'
 
@@ -68,8 +65,9 @@ setopt no_share_history
 # play! framework for scala
 # ---------------------------------------------
 # on a mac, you have to keep updating this with java updates.  :(
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_11.jdk/Contents/Home/
+# export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/Contents/Home/
 # path+=~/local/play-2.0.4
+# export JAVA_OPTS="-Xms4g -Xmx8g"
 
 
 # GOLANG
