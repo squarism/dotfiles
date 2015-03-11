@@ -34,6 +34,10 @@ map <Leader>d :bd<CR>
 "------------------------------------------------------------------------------
 " Ctrl-p is mapped to Ctrl-p.  Wow what a concept.
 map <C-p> :CtrlPCurWD<CR>
+unlet g:ctrlp_custom_ignore
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|tmp$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.swp$' }
 
 
 " Buffer related things
