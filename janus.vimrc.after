@@ -11,6 +11,9 @@ colorscheme jellybeans
 " ruby code lol
 set textwidth=99
 
+" allow file switching in vim without saving
+set hidden  " this is kind of stupid it's not default
+
 " Customize the gutter
 highlight clear SignColumn
 highlight GitGutterAdd ctermfg=green
@@ -68,3 +71,10 @@ endfunction
 " Disable scrollbars
 set guioptions-=L  " this does nerdtree
 set guioptions-=r  " this does the normal right one
+
+
+" crystal-lang syntax
+au BufNewFile,BufRead *.cr set filetype=ruby
+
+map <Leader><space> :noh<CR>
+map <F2> :set paste!<CR>
