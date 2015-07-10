@@ -1,17 +1,29 @@
-export PATH=~/bin:~/local/bin:/usr/local/sbin:/usr/local/bin:$PATH
+# GENERAL SETTINGS
+# -------------------------------
+# local scripts can go in ~/bin
+path+=~/bin
+
+# local installs can go in ~/local instead of /usr/local
+path+=~/local/bin
+
+# this affects tmux+vim poorly, see tmux.conf for fixes
 export TERM="xterm-256color"
+export EDITOR="vim"
 
 
 # NODE.JS
 # -------------------------------
 # node version manager
 # source ~/.nvm/nvm.sh  # uncomment this if you use nvm
-export PATH=~/node_modules/coffee-script/bin:/usr/local/share/npm/bin:$PATH
-alias gupl='gulp'  # argh, typos.
+
+path+=/node_modules/coffee-script/bin
+alias gupl='gulp'   # argh, typos.
+alias node='nodejs' # for certain package managers that install it as nodejs
 
 
 # RUBY SPECIFICS
 # -------------------------------
+alias b="bundle"
 alias bi="b install --path vendor"
 alias bil="bi --local"
 alias be="b exec"
@@ -29,11 +41,11 @@ alias gss='git status -s'
 alias gst='git status'
 alias glg='git log --graph --oneline --all --abbrev-commit --decorate'
 alias glgg='git log --graph --max-count=15'
+alias gpr="git pull --rebase"
 
 
 # RVM
 # ----------------------------------------------
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 alias gemset='rvm gemset name'
 
 
@@ -72,8 +84,11 @@ setopt no_share_history
 
 # GOLANG
 # ---------------------------------------------
- export GOPATH=~/src/go
- path+=~/src/go/bin
+export GOPATH=~/src/go
+path+=~/src/go/bin
+# You'll need to install go from src to ~/local/go
+export GOROOT=~/local/go
+path+=~/local/go/bin
 
 
 # GIT AUTHOR INFO
@@ -83,9 +98,9 @@ setopt no_share_history
 # export GIT_COMMITTER_NAME='CHANGEME'
 # export GIT_COMMITTER_EMAIL='changeme@changeme.com'
 
- # amazon web services
- # export JAVA_HOME="$(/usr/libexec/java_home)"
- # export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
- # export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
- # export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
+# amazon web services
+# export JAVA_HOME="$(/usr/libexec/java_home)"
+# export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
+# export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
+# export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
 
