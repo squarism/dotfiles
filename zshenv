@@ -41,7 +41,7 @@ alias gss='git status -s'
 alias gst='git status'
 alias glg='git log --graph --oneline --all --abbrev-commit --decorate'
 alias glgg='git log --graph --max-count=15'
-alias gpr="git pull --rebase"
+alias gpr="git pull --rebase --prune"
 
 
 # RVM
