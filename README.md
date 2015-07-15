@@ -26,15 +26,13 @@ I'm assuming a clean box here.  **Please** backup your files or really read what
     * If you installed vim with homebrew, skip compiling.
   * Install [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) like normal
     * curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-  * Install [codegram/vimfiles](https://github.com/codegram/vimfiles) like normal (if you trust them there is a shorter step described on their github page)
-    * manual way:
-    * git clone https://github.com/codegram/vimfiles.git ~/.vim
-    * ln -s ~/.vim/vimrc ~/.vimrc
-    * git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+  * Install [janus vim](https://github.com/carlhunda/janus) like normal (if you trust them there is a shorter step described on their github page)
+    * `curl -Lo- https://bit.ly/janus-bootstrap | bash`
+    * Add extras to the janus dir (won't exist, so create it)
+      * `mkdir ~/.janus; cd !$`
+      * `git clone https://github.com/bling/vim-airline`
   * Put my dotfiles into place:
-    * bash install.sh  (destroys .vimrc)
-  * Run vim install
-    * vim -c 'BundleInstall'
+    * `bash install.sh`  (destroys .vimrc)
 
 
 Tmux
