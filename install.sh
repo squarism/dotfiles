@@ -1,12 +1,49 @@
 #!/bin/bash
 
-if [ -f ~/.vimrc ]; then
-	echo "Removing .vimrc..."
-	rm ~/.vimrc
+# Sanity tests
+# --------------------------------------------------------------
+if [ -d ./vim ] && [ -f ./squarism.zsh-theme ]; then
+  echo "Starting dotfile install ..."
+  sleep 1
+else
+  echo "Please run the install from the git clone'd directory"
+  exit 1
 fi
 
+if [ ! -x $(which git) ]; then
+  echo Please install git.
+  exit 1
+fi
+
+
+# Vim config
+# --------------------------------------------------------------
+if [ -f ~/.vimrc ]; then
+  echo "Backing up .vimrc to vimrc.squarism-dotfiles.bak"
+  mv ~/.vimrc ~/vimrc.squarism.bak
+fi
+
+cp vim/vimrc ~/.vimrc
+cp vim/vimrc.local ~/.vimrc.local
+
+if [ -d ~/.vimbundles ]; then
+  mv ~/.vimbundles ~/vimbundles.squarism-dotfiles.bak
+fi
+mkdir ~/.vimbundles
+
+olddir=`pwd`
+cd ~/.vimbundles
+for a in `cat ${olddir}/vim/plugins.list`; do
+  git clone "https://${a}"
+done
+cd ${olddir}
+
+
+# General config
+# --------------------------------------------------------------
+
 echo "Copying dotfiles into home (including new vimrc)..."
-dotfiles=( gemrc profile rvmrc tmux.conf vimrc zshenv gitconfig )
+dotfiles=( gemrc profile rvmrc tmux.conf zshenv gitconfig )
 for dotfile in "${dotfiles[@]}"; do
   cp ${dotfile} ~/.${dotfile}
   if [ $? -eq "1" ]; then break; fi
@@ -42,15 +79,15 @@ platform='unknown'
 unamestr=`uname`
 
 if [[ "$unamestr" == 'Linux' ]]; then
-	platform='linux'
+  platform='linux'
 elif [[ "$unamestr" == 'Darwin' ]]; then
-	platform='mac'
+  platform='mac'
 fi
 
 if [[ $platform == 'linux' ]]; then
-	cp zshrc.linux ~/.zshrc
+  cp zshrc.linux ~/.zshrc
 fi
 
 if [[ $platform == 'mac' ]]; then
-	cp zshrc.mac ~/.zshrc
+  cp zshrc.mac ~/.zshrc
 fi
