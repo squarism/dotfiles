@@ -1,0 +1,40 @@
+set background=dark
+colorscheme hybrid
+set cursorline
+set listchars=trail:·
+set noundofile
+set undodir=/tmp/vimundofiles
+set number
+
+" whitespace
+set tabstop=2 shiftwidth=2 expandtab smarttab
+
+" ctrl-p stuff
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|tmp$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.swp$' }
+
+" toggle sidebar nav - FIXME: not using NERDTree anymore while testing what plugin is freaking vim out
+" nmap <silent> <C-n> :call g:WorkaroundNERDTreeToggle()<CR>
+" function! g:WorkaroundNERDTreeToggle()
+"   try | NERDTreeToggle | catch | silent! NERDTree | endtry
+" endfunction
+
+" toggle buffer list
+map <C-l> :BuffergatorToggle<CR>
+
+" fancier status line drawing
+let g:airline_powerline_fonts=1
+let g:airline_theme='luna'
+
+" golang files
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+au BufNewFile,BufRead *.go set nolist
+
+" use 256 colors in tmux - TODO: wish this was smarter but it seems to work
+" outside of tmux too.
+set t_Co=256
+set term=screen-256color
