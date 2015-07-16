@@ -1,4 +1,7 @@
 #!/bin/bash
+function spacer() {
+  echo -e "\n\n-------------------------------------------------\n\n"
+}
 
 # Sanity tests
 # --------------------------------------------------------------
@@ -34,10 +37,17 @@ mkdir ~/.vimbundles
 olddir=`pwd`
 cd ~/.vimbundles
 for a in `cat ${olddir}/vim/plugins.list`; do
-  git clone "https://${a}"
+  git clone -q "https://${a}"
 done
 cd ${olddir}
 
+if [ ! -d ~/.vim/autoload ]; then
+  mkdir -p ~/.vim/autoload
+fi
+ln -s ~/.vimbundles/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/pathogen.vim
+
+echo "All done with the vim config."
+spacer
 
 # General config
 # --------------------------------------------------------------

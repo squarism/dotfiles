@@ -1,5 +1,3 @@
-set background=dark
-colorscheme hybrid
 set cursorline
 set listchars=trail:·
 set noundofile
@@ -38,3 +36,7 @@ au BufNewFile,BufRead *.go set nolist
 " outside of tmux too.
 set t_Co=256
 set term=screen-256color
+
+" for some reason this doesn't work at the top on linux
+set background=dark
+colorscheme hybrid
