@@ -34,6 +34,7 @@ set term=screen-256color
 " for some reason this doesn't work at the top on linux
 set background=dark
 colorscheme hybrid
+
 " File explorer
 let g:vimfiler_as_default_explorer = 1
 nnoremap <C-N> :<C-u>VimFilerExplorer -split -simple -parent -winwidth=55 -toggle -no-quit<CR>
