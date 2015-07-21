@@ -44,3 +44,5 @@ github.com/tpope/vim-tbone
 github.com/jgdavey/vim-turbux
 github.com/tpope/vim-unimpaired
 github.com/tpope/vim-vividchalk
+github.com/Shougo/unite.vim
+github.com/Shougo/vimfiler.vim
