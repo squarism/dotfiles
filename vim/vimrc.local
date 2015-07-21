@@ -15,12 +15,6 @@ let g:ctrlp_custom_ignore = {
     \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|tmp$',
     \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.swp$' }
 
-" toggle sidebar nav - FIXME: not using NERDTree anymore while testing what plugin is freaking vim out
-" nmap <silent> <C-n> :call g:WorkaroundNERDTreeToggle()<CR>
-" function! g:WorkaroundNERDTreeToggle()
-"   try | NERDTreeToggle | catch | silent! NERDTree | endtry
-" endfunction
-
 " toggle buffer list
 map <C-l> :BuffergatorToggle<CR>
 
@@ -40,3 +34,6 @@ set term=screen-256color
 " for some reason this doesn't work at the top on linux
 set background=dark
 colorscheme hybrid
+" File explorer
+let g:vimfiler_as_default_explorer = 1
+nnoremap <C-N> :<C-u>VimFilerExplorer -split -simple -parent -winwidth=55 -toggle -no-quit<CR>
