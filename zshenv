@@ -10,6 +10,15 @@ path+=~/local/bin
 export TERM="xterm-256color"
 export EDITOR="vim"
 
+# tree shortcut (list file tree in not useless infinite recursive way)
+function t() {
+  dir="."
+  if [ ! -z $1 ]; then
+    dir=$1
+  fi
+  tree -F -L 2 $dir
+}
+
 
 # NODE.JS
 # -------------------------------
