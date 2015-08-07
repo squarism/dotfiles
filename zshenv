@@ -42,8 +42,7 @@ alias beg="bundle exec guard"
 # handle case where older vi is installed (esp linux)
 alias vi=vim
 
-# I used to use the ZSH git plugin but don't know how to customize it
-# So I just copied all the aliases I use often
+# I used to use the ZSH git plugin but don't know how to customize it, so I copied oft-used aliases
 alias g='git'
 alias gca='git commit -v -a'
 alias gss='git status -s'
@@ -51,6 +50,8 @@ alias gst='git status'
 alias glg='git log --graph --oneline --all --abbrev-commit --decorate'
 alias glgg='git log --graph --max-count=15'
 alias gpr="git pull --rebase --prune"
+# glt will list the commits between the latest tag and the previous tag. Helpful for when you're about to deploy.
+alias glt='git log $(git describe --tags --abbrev=0 $(git describe --tags)^)..$(git describe --tags)'
 
 
 # RVM
@@ -95,8 +96,6 @@ setopt no_share_history
 # ---------------------------------------------
 export GOPATH=~/src/go
 path+=~/src/go/bin
-# You'll need to install go from src to ~/local/go
-export GOROOT=~/local/go
 path+=~/local/go/bin
 
 
@@ -113,3 +112,7 @@ path+=~/local/go/bin
 # export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
 # export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
 
+
+function box_name {
+  [ -f ~/.box-name ] && cat ~/.box-name || hostname -s
+}
