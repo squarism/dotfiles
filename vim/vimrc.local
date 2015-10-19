@@ -1,8 +1,14 @@
+" set background=dark
+" colorscheme hybrid
+colorscheme Tomorrow-Night
 set cursorline
 set listchars=trail:·
 set noundofile
 set undodir=/tmp/vimundofiles
 set number
+
+let mapleader = ","
+let g:mapleader = ","
 
 " whitespace
 set tabstop=2 shiftwidth=2 expandtab smarttab
@@ -25,16 +31,52 @@ let g:airline_theme='luna'
 " golang files
 au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.go set nolist
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
 
 " use 256 colors in tmux - TODO: wish this was smarter but it seems to work
 " outside of tmux too.
 set t_Co=256
 set term=screen-256color
 
-" for some reason this doesn't work at the top on linux
-set background=dark
-colorscheme hybrid
-
 " File explorer
 let g:vimfiler_as_default_explorer = 1
-nnoremap <C-N> :<C-u>VimFilerExplorer -split -simple -parent -winwidth=55 -toggle -no-quit<CR>
+nnoremap <C-N> :<C-u>VimFilerExplorer -split -simple -parent -winwidth=45 -toggle -no-quit<CR>
+
+
+" Increment the date from yesterday.  Used for my development log (journal).
+" If today is Monday, this should jump ahead three days.
+function! NextDate()
+  " get top line number
+  let topline = getline(1)
+  " trim the '# ' from a markdown header.  '# 2015-02-12' becomes '2015-02-12'
+  let trimmed_line = substitute(topline, '\v^\#\s+(.*)', '\1', '')
+
+  silent let next_date = system("tomorrow.rb " . trimmed_line)
+  " trim newline from output
+  let trimmed_next_date = substitute(next_date, '\n\+$', '', '')
+  call append(0, [ ("# " . trimmed_next_date), "" ] )
+  call append(1, "")
+  execute "normal! ggjo"
+endfunction
+map <leader>N  :call NextDate()<CR>
+
+
+" convert 1.9 hashes to 2.0
+command! -bar -range=% NotRocket :<line1>,<line2>s/:\@<!:\(\w\+\)\s*=>/\1:/ge
+map <leader>R  :NotRocket<CR>
+
+map <leader>d :bd<CR>
+
+" Alignment with Tabular
+" THIS ISN'T WORKING
+vnoremap <silent> <leader>a= :Tabularize/:\w=>\|=><CR>
+vnoremap <silent> <leader>a: :Tabularize /\w:\zs/l0l1<CR>
+vnoremap <silent> <leader>a<bar> :Tabularize /\w<bar>\zs/l0l1<CR>
+
+" quick switch between tests
+nmap tt :A<CR>
+
+let g:turbux_command_prefix = 'bundle exec'
