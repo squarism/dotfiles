@@ -22,10 +22,11 @@ function t() {
 
 # NODE.JS
 # -------------------------------
-# node version manager
-# source ~/.nvm/nvm.sh  # uncomment this if you use nvm
+# node version manager - optional, usually install this instead of the brew version
+# source ~/.nvm/nvm.sh
+# nvm use --silent 0.12.7
 
-path+=/node_modules/coffee-script/bin
+path+=~/node_modules/coffee-script/bin
 alias gupl='gulp'   # argh, typos.
 alias node='nodejs' # for certain package managers that install it as nodejs
 
@@ -52,6 +53,7 @@ alias glgg='git log --graph --max-count=15'
 alias gpr="git pull --rebase --prune"
 # glt will list the commits between the latest tag and the previous tag. Helpful for when you're about to deploy.
 alias glt='git log $(git describe --tags --abbrev=0 $(git describe --tags)^)..$(git describe --tags)'
+alias gyolo='git commit -a -m "$(curl -s whatthecommit.com/index.txt)"'
 
 
 # RVM
@@ -84,14 +86,6 @@ setopt no_share_history
 # fi
 
 
-# play! framework for scala
-# ---------------------------------------------
-# on a mac, you have to keep updating this with java updates.  :(
-# export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/Contents/Home/
-# path+=~/local/play-2.0.4
-# export JAVA_OPTS="-Xms4g -Xmx8g"
-
-
 # GOLANG
 # ---------------------------------------------
 export GOPATH=~/src/go
@@ -106,13 +100,56 @@ path+=~/local/go/bin
 # export GIT_COMMITTER_NAME='CHANGEME'
 # export GIT_COMMITTER_EMAIL='changeme@changeme.com'
 
-# amazon web services
-# export JAVA_HOME="$(/usr/libexec/java_home)"
-# export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
-# export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
-# export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
+
+# GENERAL ALIASES
+# ----------------------------------------------
+alias redis='redis-cli'
 
 
+# RUBY
+# ----------------------------------------------
+# chruby init
+#   Install a ruby with:                                                                                                                                 #   brew install ruby-build
+#   ruby-build 2.1.6 ~/.rubies/ruby-2.1.6
+# ----------------------------------------------
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+# source /usr/local/opt/chruby/share/chruby/auto.sh
+chruby 2.1.6
+
+
+
+
+# VM & VAGRANT ALIASES
+# ----------------------------------------------
+# alias bacon='ssh bacon@bacon'
+# alias muffin='ssh muffin@muffin'
 function box_name {
   [ -f ~/.box-name ] && cat ~/.box-name || hostname -s
+}
+
+
+# fuzzy finder with fzf
+# ----------------------------------------------
+# fkill - kill process
+fkill() {
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    kill -${1:-9} $pid
+  fi
+}
+
+# fbr - checkout git branch (including remote branches)
+fbr() {
+  local branches branch
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+# fh - repeat history
+fh() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }

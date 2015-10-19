@@ -26,11 +26,9 @@ I'm assuming a clean box here.  **Please** backup your files or really read what
     * If you installed vim with homebrew, skip compiling.
   * Install [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) like normal
     * curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-  * Install [janus vim](https://github.com/carlhunda/janus) like normal (if you trust them there is a shorter step described on their github page)
-    * `curl -Lo- https://bit.ly/janus-bootstrap | bash`
-    * Add extras to the janus dir (won't exist, so create it)
-      * `mkdir ~/.janus; cd !$`
-      * `git clone https://github.com/bling/vim-airline`
+  * Install [antigen](https://github.com/zsh-users/antigen):
+    * `mkdir ~/.antigen`
+    * `curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > ~/.antigen/antigen.zsh`
   * Put my dotfiles into place:
     * `bash install.sh`  (destroys .vimrc)
 
@@ -72,7 +70,7 @@ and edited a little bit.  Here are the key-combinations I use everyday.
 
     Ctrl-Shift-Left Arrow = Push window to the left
     Ctrl-Shift-Right Arrow = Push window to the right
-    
+
     You can move a window into quads with these four keys:
     Ctrl-Shift+ ...
                    Screen Corners
@@ -80,10 +78,10 @@ and edited a little bit.  Here are the key-combinations I use everyday.
                   |  Q   |   W   |
                   |  A   |   S   |
                   ----------------
-                  
+
 The rest of the keys are on the wiki (with a nice diagram too).
 
 The installer does not copy this file as it's not really "unixy".  If you use Phoenix or just want to try using a nice starting config, copy it and Phoenix will automatically load it.
 
-	cp phoenix.js ~/.phoenix.js                  
-    
+  cp phoenix.js ~/.phoenix.js
+
