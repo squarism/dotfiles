@@ -45,15 +45,37 @@ annoying for main-style scripts (since you don't have a project
 directory).
 
 
-Janus Vim
+Vim
 -----
-If you use janus vim instead of the above vim config from codegram:
 
-    cp janus.vimrc.after ~/.vimrc.after
+```
+mkdir ~/.vimbundles/
+cd ~/.vimbundles/
 
-Download the jellybeans iTerm2 theme from [here](https://github.com/qtpi/Jellybeans.itermcolors)
+TODO: script the below into here
+```
+
+```
+.vimbundles
+ack.vim           nim.vim           vim-blockle       vim-cucumber      vim-haml          vim-ragtag        vim-speeddating
+ag.vim            supertab          vim-buffergator   vim-dispatch      vim-javascript    vim-rails         vim-surround
+bufkill.vim       tabular           vim-bufonly       vim-endwise       vim-json          vim-rake          vim-tbone
+ctrlp.vim         tommorow-theme    vim-bundler       vim-eunuch        vim-markdown      vim-repeat        vim-turbux
+hexmode           unite.vim         vim-coffee-script vim-fugitive      vim-materialtheme vim-rsi           vim-unimpaired
+molokai           vim-abolish       vim-colorschemes  vim-git           vim-pathogen      vim-sensible      vim-vividchalk
+neocomplete.vim   vim-airline       vim-commentary    vim-go            vim-pyte          vim-sleuth        vimfiler.vim
+```
+
+Themes
+----
+Jellybeans is pretty good.  Download the jellybeans iTerm2 theme from [here](https://github.com/qtpi/Jellybeans.itermcolors)
 
     wget https://raw.githubusercontent.com/qtpi/Jellybeans.itermcolors/master/jellybeans.itermcolors
+
+Current Combo:
+  * iTerm - Flatland
+  * vim - flatland - https://github.com/vivkin/flatland.vim
+  * vim-airline - luna
 
 
 Phoenix
