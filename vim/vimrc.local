@@ -80,3 +80,6 @@ vnoremap <silent> <leader>a<bar> :Tabularize /\w<bar>\zs/l0l1<CR>
 nmap tt :A<CR>
 
 let g:turbux_command_prefix = 'bundle exec'
+
+" turn off vim-json quotes autohiding, even though I love them, it's confusing
+let g:vim_json_syntax_conceal = 0
