@@ -107,3 +107,16 @@ The installer does not copy this file as it's not really "unixy".  If you use Ph
 
   cp phoenix.js ~/.phoenix.js
 
+
+Irssi
+---
+My config just adds a shortcut for freenode to auto-authenticate.
+This can also be achieved by doing this:
+
+```
+# while connected to freenode and after registering etc (or any IRC network)
+/network add -autosend "/^msg NickServ identify yourpassword"
+/save
+```
+
+Edit ~/.irssi/config and change the `CHANGEME` bits.
