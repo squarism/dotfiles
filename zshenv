@@ -20,6 +20,13 @@ function t() {
 }
 
 
+# EMBRACING TYPOS - analyze your shell history every once and a while and see what typos you make
+# -------------------------------
+alias gupl='gulp'
+alias ks='ls'
+alias lks='ls'
+
+
 # NODE.JS
 # -------------------------------
 # node version manager - optional, usually install this instead of the brew version
@@ -45,15 +52,23 @@ alias vi=vim
 
 # I used to use the ZSH git plugin but don't know how to customize it, so I copied oft-used aliases
 alias g='git'
-alias gca='git commit -v -a'
-alias gss='git status -s'
 alias gst='git status'
-alias glg='git log --graph --oneline --all --abbrev-commit --decorate'
+alias glg='git log --graph --oneline --decorate --color'
 alias glgg='git log --graph --max-count=15'
 alias gpr="git pull --rebase --prune"
 # glt will list the commits between the latest tag and the previous tag. Helpful for when you're about to deploy.
 alias glt='git log $(git describe --tags --abbrev=0 $(git describe --tags)^)..$(git describe --tags)'
-alias gyolo='git commit -a -m "$(curl -s whatthecommit.com/index.txt)"'
+# alias gyolo='git commit -a -m "$(curl -s whatthecommit.com/index.txt)"'  # ha
+
+
+# GENERAL COMMANDS
+# ----------------------------------------------
+alias flushdns='sudo killall -HUP mDNSResponder'
+alias vi=vim  # handle case where older vi is installed (esp linux)
+alias ipaddr=`ifconfig en4 | grep inet | grep -v inet6 | cut -d" " -f 2`  # CHANGEME - interface assumption
+alias start_consul='consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -ui-dir /opt/consul/ui -bind ${ipaddr}'
+alias htop='sudo htop -d 5'
+alias redis='redis-cli'
 
 
 # RVM
@@ -101,11 +116,6 @@ path+=~/local/go/bin
 # export GIT_COMMITTER_EMAIL='changeme@changeme.com'
 
 
-# GENERAL ALIASES
-# ----------------------------------------------
-alias redis='redis-cli'
-
-
 # RUBY
 # ----------------------------------------------
 # chruby init
@@ -115,8 +125,6 @@ alias redis='redis-cli'
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 # source /usr/local/opt/chruby/share/chruby/auto.sh
 chruby 2.1.6
-
-
 
 
 # VM & VAGRANT ALIASES
