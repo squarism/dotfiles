@@ -9,6 +9,8 @@ path+=~/local/bin
 # this affects tmux+vim poorly, see tmux.conf for fixes
 export TERM="xterm-256color"
 export EDITOR="vim"
+export ipaddr=`ifconfig en4 | grep inet | grep -v inet6 | cut -d" " -f 2`  # CHANGEME - interface assumption
+
 
 # tree shortcut (list file tree in not useless infinite recursive way)
 function t() {
@@ -65,7 +67,6 @@ alias glt='git log $(git describe --tags --abbrev=0 $(git describe --tags)^)..$(
 # ----------------------------------------------
 alias flushdns='sudo killall -HUP mDNSResponder'
 alias vi=vim  # handle case where older vi is installed (esp linux)
-alias ipaddr=`ifconfig en4 | grep inet | grep -v inet6 | cut -d" " -f 2`  # CHANGEME - interface assumption
 alias start_consul='consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -ui-dir /opt/consul/ui -bind ${ipaddr}'
 alias htop='sudo htop -d 5'
 alias redis='redis-cli'
