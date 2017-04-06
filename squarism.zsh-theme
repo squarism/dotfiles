@@ -7,16 +7,15 @@
 # Ripoff of: af-magic by Andy Fleming
 #
 # Created on: Feb 17, 2013
-# Last modified on: Aug 27, 2015
+# Last modified on: Apr 06, 2017
 
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
 # primary prompt
 PROMPT='$FG[032]%2~\
 $(git_prompt_info) \
-$FG[105]%(!.#.»)%{$reset_color%} '
-PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
+$FG[105]%(!.#.$FG[208]>$FG[214]>)%{$reset_color%} '
+
 RPS1='${return_code}'
 
 # color vars
