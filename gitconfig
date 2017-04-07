@@ -1,11 +1,14 @@
 [color]
   ui = true
 [core]
-  pager = 
+  pager =
+[user]
+# fill this in during first run of `git` and then get rid of these
+# TODO: prompt in install script
+#	name = Chris Dillon
+#	email = squarism@gmail.com
+[credential]
+	helper = osxkeychain
 [alias]
-  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-  lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
-  ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
-  tree = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative
-
+	co = checkout
+	br = branch
