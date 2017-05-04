@@ -45,24 +45,9 @@ set term=screen-256color
 let g:vimfiler_as_default_explorer = 1
 nnoremap <C-N> :<C-u>VimFilerExplorer -split -simple -parent -winwidth=45 -toggle -no-quit<CR>
 
-
-" Increment the date from yesterday.  Used for my development log (journal).
-" If today is Monday, this should jump ahead three days.
-function! NextDate()
-  " get top line number
-  let topline = getline(1)
-  " trim the '# ' from a markdown header.  '# 2015-02-12' becomes '2015-02-12'
-  let trimmed_line = substitute(topline, '\v^\#\s+(.*)', '\1', '')
-
-  silent let next_date = system("tomorrow.rb " . trimmed_line)
-  " trim newline from output
-  let trimmed_next_date = substitute(next_date, '\n\+$', '', '')
-  call append(0, [ ("# " . trimmed_next_date), "" ] )
-  call append(1, "")
-  execute "normal! ggjo"
-endfunction
-map <leader>N  :call NextDate()<CR>
-
+" Insert the date at the top of a development log.
+" http://squarism.com/2015/11/13/why-a-dev-log-is-great/
+nmap <leader>N ggi# <C-R>=strftime("%Y-%m-%d - %A")<CR><CR><CR>
 
 " convert 1.9 hashes to 2.0
 command! -bar -range=% NotRocket :<line1>,<line2>s/:\@<!:\(\w\+\)\s*=>/\1:/ge
