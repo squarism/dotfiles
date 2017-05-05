@@ -1,11 +1,20 @@
-" set background=dark
-" colorscheme hybrid
-colorscheme Tomorrow-Night
+" Colors - important almost-literal bike shedding decisions and settings here
+set background=dark
+let base16colorspace=256  " Access colors present in 256 colorspace
+if !has('gui_running')
+  set t_Co=256
+endif
+let g:lightline = { 'colorscheme': 'nord' }
+colorscheme nord
+
 set cursorline
 set listchars=trail:·
 set noundofile
 set undodir=/tmp/vimundofiles
 set number
+set textwidth=110  " lol ruby code
+set tw=110
+set hidden  " don't warn on unsaved files
 
 let mapleader = ","
 let g:mapleader = ","
@@ -13,20 +22,26 @@ let g:mapleader = ","
 " whitespace
 set tabstop=2 shiftwidth=2 expandtab smarttab
 
+" Oh hell no easy-mode!  :P
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+
 " ctrl-p stuff
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|tmp$',
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|tmp$\|app/assets$',
     \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.swp$' }
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
 " toggle buffer list
 map <C-l> :BuffergatorToggle<CR>
 
 " fancier status line drawing
 let g:airline_powerline_fonts=1
-let g:airline_theme='luna'
 
 " golang files
 au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
@@ -36,10 +51,6 @@ au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 
-" use 256 colors in tmux - TODO: wish this was smarter but it seems to work
-" outside of tmux too.
-set t_Co=256
-set term=screen-256color
 
 " File explorer
 let g:vimfiler_as_default_explorer = 1
@@ -54,13 +65,13 @@ command! -bar -range=% NotRocket :<line1>,<line2>s/:\@<!:\(\w\+\)\s*=>/\1:/ge
 map <leader>R  :NotRocket<CR>
 
 map <leader>d :bd<CR>
+map <leader>D :BD<CR>
 
-" Alignment with Tabular
-" THIS ISN'T WORKING
-vnoremap <silent> <leader>a= :Tabularize/:\w=>\|=><CR>
-vnoremap <silent> <leader>a: :Tabularize /\w:\zs/l0l1<CR>
-vnoremap <silent> <leader>a<bar> :Tabularize /\w<bar>\zs/l0l1<CR>
+" align by equals
+map <leader>= :Tabularize/=<CR>
 
+" Testing
+nmap <silent> <leader>s :TestNearest<CR>
 " quick switch between tests
 nmap tt :A<CR>
 
@@ -68,3 +79,19 @@ let g:turbux_command_prefix = 'bundle exec'
 
 " turn off vim-json quotes autohiding, even though I love them, it's confusing
 let g:vim_json_syntax_conceal = 0
+
+set tags=./tags,tags;$HOME
+
+" change easymotion prefix
+map <SPACE> <Plug>(easymotion-prefix)
+
+" vim-seek - type two letters just like f
+" In other words, use it like f/F but with s/S and two letters minimum
+" This setting replaces s (substitute - which I never use) with vim-seek
+let g:seek_subst_disable = 1
+
+" Golang and vim-go
+set autowrite
+
+" Markdown options
+let g:vim_markdown_emphasis_multiline = 0
