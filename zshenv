@@ -24,7 +24,6 @@ function t() {
 
 # EMBRACING TYPOS - analyze your shell history every once and a while and see what typos you make
 # -------------------------------
-alias gupl='gulp'
 alias ks='ls'
 alias lks='ls'
 
@@ -34,10 +33,7 @@ alias lks='ls'
 # node version manager - optional, usually install this instead of the brew version
 # source ~/.nvm/nvm.sh
 # nvm use --silent 0.12.7
-
 path+=~/node_modules/coffee-script/bin
-alias gupl='gulp'   # argh, typos.
-alias node='nodejs' # for certain package managers that install it as nodejs
 
 
 # RUBY SPECIFICS
@@ -70,11 +66,6 @@ alias vi=vim  # handle case where older vi is installed (esp linux)
 alias start_consul='consul agent -server -bootstrap-expect 1 -data-dir /tmp/consul -ui-dir /opt/consul/ui -bind ${ipaddr}'
 alias htop='sudo htop -d 5'
 alias redis='redis-cli'
-
-
-# RVM
-# ----------------------------------------------
-alias gemset='rvm gemset name'
 
 
 # ZSH tweaks
@@ -120,12 +111,16 @@ path+=~/local/go/bin
 # RUBY
 # ----------------------------------------------
 # chruby init
-#   Install a ruby with:                                                                                                                                 #   brew install ruby-build
-#   ruby-build 2.1.6 ~/.rubies/ruby-2.1.6
+# Install a ruby with:
+#   brew install ruby-build
+#   ruby-build 2.4.1 ~/.rubies/ruby-2.4.1
+#
+# Updating ruby-build:
+#   ruby-build --definitions needs to have the version you want.
+#   git pull from that repo or re-run install.sh from ruby-build.
 # ----------------------------------------------
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-# source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby 2.1.6
+source /usr/local/opt/chruby/share/chruby/chruby.sh  # this line will change depending on OS's.
+chruby 2.4.1
 
 
 # VM & VAGRANT ALIASES
@@ -137,28 +132,6 @@ function box_name {
 }
 
 
-# fuzzy finder with fzf
-# ----------------------------------------------
-# fkill - kill process
-fkill() {
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-
-  if [ "x$pid" != "x" ]
-  then
-    kill -${1:-9} $pid
-  fi
-}
-
-# fbr - checkout git branch (including remote branches)
-fbr() {
-  local branches branch
-  branches=$(git branch --all | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-}
-
-# fh - repeat history
-fh() {
-  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-}
+# base16 config
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"

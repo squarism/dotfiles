@@ -82,6 +82,18 @@ echo
 echo "Change your Git author info in ~/.zshenv"
 echo "Also take a look at .zshenv for all customizations ..."
 
+echo
+echo "Install base16 for 256 shell colors"
+git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+if [ $? -eq "0"]; then
+  echo "Success.  Running color test.  There should not be any dark blue patterns at the end."
+  echo "Check https://github.com/chriskempson/base16-shell for options if not."
+  ~/.config/base16-shell/colortest
+else
+  echo "Couldn't git clone.  Do you have git installed?  Internet down?"
+  exit 1
+fi
+
 
 # os specific hooks
 ###################
