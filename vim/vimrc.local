@@ -16,6 +16,13 @@ set textwidth=110  " lol ruby code
 set tw=110
 set hidden  " don't warn on unsaved files
 
+" temp files - you need to create these manually
+" I will not do some conditional or trickery when vim boots, unneeded if you just remember to
+" make these directories.
+set directory=~/.vim/swap
+set backupdir=~/.vim/tmp
+
+
 let mapleader = ","
 let g:mapleader = ","
 

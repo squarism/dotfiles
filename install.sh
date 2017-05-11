@@ -29,13 +29,13 @@ fi
 cp vim/vimrc ~/.vimrc
 cp vim/vimrc.local ~/.vimrc.local
 
-if [ -d ~/.vimbundles ]; then
-  mv ~/.vimbundles ~/vimbundles.squarism-dotfiles.bak
+if [ -d ~/.vim/bundles ]; then
+  mv ~/.vim/bundles ~/vimbundles.squarism-dotfiles.bak
 fi
-mkdir ~/.vimbundles
+mkdir -p ~/.vim/bundles
 
 olddir=`pwd`
-cd ~/.vimbundles
+cd ~/.vim/bundles
 for a in `cat ${olddir}/vim/plugins.list`; do
   git clone -q "https://${a}"
 done
@@ -44,7 +44,11 @@ cd ${olddir}
 if [ ! -d ~/.vim/autoload ]; then
   mkdir -p ~/.vim/autoload
 fi
-ln -s ~/.vimbundles/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/pathogen.vim
+ln -s ~/.vim/bundles/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/pathogen.vim
+
+# create temp file locations, these are used by vimrc.local
+if [ ! -d ~/.vim/swap ]; then; mkdir -p ~/.vim/swap; fi
+if [ ! -d ~/.vim/tmp ]; then; mkdir -p ~/.vim/tmp; fi
 
 echo "All done with the vim config."
 spacer
