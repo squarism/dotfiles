@@ -1,7 +1,9 @@
-The Premier Hipsterware Dotfiles Repo™
+# Dotfiles
 ===========
 
-My hipsterware stack.
+My baseline configs for fresh boxes.  This repo can be used to
+re-baseline a box but it'll stomp on your vim config (after backing it up).
+So this is primarily a "fresh machine" kinda of thing.
 
   * zsh - Awesome shell.  Needs oh-my-zsh.
   * tmux - Beats screen.  Easy split mode and pane switching.
