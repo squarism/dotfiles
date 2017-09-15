@@ -1,0 +1,10 @@
+# global agignore file for ag (the silver searcher) to put in HOME
+# alias ag like this to redefine ag with this default
+# alias ag='ag --path-to-ignore ~/.agignore'
+
+# we never would want to search binaries like text
+bin
+pkg
+
+# golang dependencies
+vendor/src

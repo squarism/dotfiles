@@ -11,6 +11,9 @@ export TERM="xterm-256color"
 export EDITOR="vim"
 export ipaddr=`ifconfig en4 | grep inet | grep -v inet6 | cut -d" " -f 2`  # CHANGEME - interface assumption
 
+# use a global ag (the silver searcher) ignore file
+alias ag='ag --path-to-ignore ~/.agignore'
+
 
 # tree shortcut (list file tree in not useless infinite recursive way)
 function t() {
