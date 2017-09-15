@@ -57,7 +57,7 @@ spacer
 # --------------------------------------------------------------
 
 echo "Copying dotfiles into home (including new vimrc)..."
-dotfiles=( gemrc profile rvmrc tmux.conf zshenv gitconfig )
+dotfiles=( gemrc profile rvmrc tmux.conf zshenv gitconfig agignore )
 for dotfile in "${dotfiles[@]}"; do
   cp ${dotfile} ~/.${dotfile}
   if [ $? -eq "1" ]; then break; fi
