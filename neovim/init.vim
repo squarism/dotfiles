@@ -1,124 +1,161 @@
-" vim-plug as plugin manager
-" https://github.com/junegunn/vim-plug
-call plug#begin()
+"Dein as the plugin manager for vim
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
-" autocomplete engine
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
+set runtimepath+=$HOME/.vim/bundles/repos/github.com/Shougo/dein.vim
 
-Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+if dein#load_state($HOME . '/.vim/bundles')
+  call dein#begin($HOME . '/.vim/bundles')
+  call dein#add($HOME . '/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
-Plug 'itchyny/lightline.vim'                                      " status line (bottom)
-Plug 'mengelbrecht/lightline-bufferline'                          " buffer status line (top)
+  " To update, run
+  " call dein#update()
 
-Plug 'Shougo/vimfiler.vim', { 'on': 'VimFiler' }                  " file browser
-Plug 'Shougo/unite.vim'                                           " vimfiler dependency
+  " General plugins
+  " ------------------------------------------------------------------------------
+  call dein#add('easymotion/vim-easymotion')
+  call dein#add('itchyny/lightline.vim')
+  call dein#add('mengelbrecht/lightline-bufferline')
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('ayu-theme/ayu-vim')
+  call dein#add('janko/vim-test', { 'on_cmd' : [ 'TestFile', 'TestLast', 'TestSuite', 'TestVisit', 'TestNearest' ] })
 
-Plug 'godlygeek/tabular'                                          " tab alignment
-Plug 'mileszs/ack.vim'
+  " FZF - yes you need both of these
+  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
-" Colors
-Plug 'chriskempson/base16-vim'
-Plug 'NLKNguyen/papercolor-theme'
+  " Language Server for autocomplete
+  call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
 
-" Language Server for autocomplete
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  call dein#add('godlygeek/tabular', { 'on_cmd' : [ 'Tab', 'Tabularize' ] , 'augroup' : 'tabular' })
+  call dein#add('mileszs/ack.vim', { 'on_cmd' : [ 'Ack' ] })
+  call dein#add('Shougo/defx.nvim', { 'on_cmd' : [ 'Defx' ] })
 
-" Plug 'sheerun/vim-polyglot'
-Plug 'fatih/vim-go'
-Plug 'zchee/deoplete-go', { 'do': 'make' }
+  " Tim Pope Land
+  " ------------------------------------------------------------------------------
+  call dein#add('tpope/vim-fugitive', { 'on_cmd': [ 'Git', 'Gstatus', 'Gwrite', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff', ] })
+  call dein#add('tpope/vim-commentary', { 'on_cmd': [ 'Commentary' ] })
+  call dein#add('tpope/vim-sensible')
+  call dein#add('tpope/vim-dispatch')
+  call dein#add('tpope/vim-repeat', {'on_map' : '.'})
+  call dein#add('tpope/vim-surround', {'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
+  " fix incrementing of dates
+  call dein#add('tpope/vim-speeddating')
 
-" Linting and Syntax
-Plug 'w0rp/ale'
- 
-" Tim Pope Land
-Plug 'tpope/vim-commentary' " quick commenting lines
-Plug 'tpope/vim-sensible'   " sensible defaults
-Plug 'tpope/vim-fugitive'   " git
+  " Languages
+  " ------------------------------------------------------------------------------
+  " Go
+  call dein#add('fatih/vim-go', { 'on_ft': [ 'go' ] })
+  call dein#add('zchee/deoplete-go', { 'on_ft': [ 'go' ] })
 
-call plug#end()
+  " Rust
+  call dein#add('rust-lang/rust.vim', { 'on_ft': [ 'rust' ] })
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+
+"End dein Scripts-------------------------
 
 
-"┌==============================================================================
-"| NeoVIM Defaults 
-"└------------------------------------------------------------------------------
+" ==============================================================================
+"  Options
+" ------------------------------------------------------------------------------
+syntax enable
 set cursorline
 set nonumber
 set tw=110
 set listchars=trail:·
+set list
 set tabstop=2 shiftwidth=2 expandtab smarttab
 set scrolloff=4 " min lines visible when scrolling
-syntax enable
 set fenc=utf-8
 set nobackup
 set noswapfile
 set autoread
 set hidden
+set undodir=~/.vim/undodir
+set undofile
 
 
-"┌==============================================================================
-"| Key Bindings - Documentation, Explanation and Reminders
-"└------------------------------------------------------------------------------
-let mapleader=","                                " define our leader key here
-nnoremap <Tab> :bnext!<CR>                       " Tab to change open files forward
-nnoremap <S-Tab> :bprev!<CR><Paste>|             " Shift+Tab to change files backward
-map ` :VimFilerCurrentDir -explorer -find<CR>|   " ,~ for file browser as last resort
-map <leader>d :bd<CR>|                           " close buffer
-map <leader>D :BD<CR>|                           " close buffer, leaves split
-map <leader><space> :nohl<CR>|                   " clear highlight
-map <F2> :r !pbpaste<CR>|                        " I can't figure out insert paste mode in this config so F2 pastes
+" ==============================================================================
+"  Key Bindings - Documentation, Explanation and Reminders
+" ------------------------------------------------------------------------------
+let mapleader=","                      " define our leader key here
+nnoremap <Tab> :bnext!<CR>             " Tab to change open files forward
+nnoremap <S-Tab> :bprev!<CR><Paste>|   " Shift+Tab to change files backward
+map <leader>w :w<CR>|                  " save
+map <leader>d :bd<CR>|                 " close buffer
+map <leader>D :BD<CR>|                 " close buffer, leaves split
+map <leader>h :nohl<CR>|               " clear highlight
+map <F2>:r !pbpaste<CR>|               " I can't figure out insert paste mode in this config so F2 pastes
+nmap <leader>/ :Ag<space>
 
-" Insert the date at the top of a dev log.
+" Insert the date at the top of a dev log
 nmap <leader>N ggi# <C-R>=strftime("%Y-%m-%d - %A")<CR><CR><CR><CR><CR><esc>3ki<CR>
 
-" pry debugging snippet
-iabbr bpry require 'pry'; binding.pry
+" Abbreviations
+au FileType ruby :iabbr bpry require 'pry'; binding.pry
+au FileType python :iabbr pdb import ipdb; ipdb.set_trace()
+
+" Changing panes
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 
-"┌==============================================================================
-"| Theme and Appearance
-"└------------------------------------------------------------------------------
+" ==============================================================================
+"  Theme and Appearance
+" ------------------------------------------------------------------------------
 set background=light
-let base16colorspace=256
+set termguicolors
 if !has('gui_running')
   set t_Co=256
 endif
-colorscheme PaperColor
+let ayucolor="light"
+colorscheme ayu
 
 
-"┌==============================================================================
-"| File Types
-"└------------------------------------------------------------------------------
+" ==============================================================================
+"  File Types
+" ------------------------------------------------------------------------------
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>T :GoTestFunc<CR>
 au FileType go nmap <leader>i :GoImports<CR>
+au FileType go set listchars=tab:\|\ ,trail:-,extends:>,precedes:<,nbsp:+
+
 au FileType markdown let b:deoplete_disable_auto_complete = 1
 
 
-"┌==============================================================================
-"| Plugin Config
-"└------------------------------------------------------------------------------
+" ==============================================================================
+"  Plugin Config
+" ------------------------------------------------------------------------------
 
-
-" Plug 'easymotion/vim-easymotion'
+" easymotion/vim-easymotion
 " ------------------------------------------------------------------------------
 " Use space and then motion(hjkl) keys to popup easymotion.  For example,
 " space+k would give you a motion popup of what lines to jump UP to.
 map <SPACE> <Plug>(easymotion-prefix)
 
-" Plug 'junegunn/fzf'
+
+" junegunn/fzf
 " ------------------------------------------------------------------------------
-nmap <C-p> :GFiles<CR>
+nmap <leader>g :GFiles<CR>
+nmap <leader>f :Files<CR>
+nmap <leader>s :Ag<CR>
 nmap ; :Buffers<CR>
 
-" Plug 'itchyny/lightline.vim'
+
+" itchyny/lightline.vim
 " ------------------------------------------------------------------------------
 let g:lightline = { 
-      \ 'colorscheme': 'PaperColor',
+      \ 'colorscheme': 'ayu',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -127,25 +164,29 @@ let g:lightline = {
       \ }
 set noshowmode  " lightline handles the -- INSERT -- feedback
 
-" Plug 'godlygeek/tabular'
+
+" godlygeek/tabular
 " ------------------------------------------------------------------------------
 nmap <leader>a= :Tabularize /=<CR>
 vmap <leader>a= :Tabularize /=<CR>
 nmap <leader>a: :Tabularize /:<CR>
 vmap <leader>a: :Tabularize /:<CR>
 
-" Plug 'mileszs/ack.vim'
+
+" mileszs/ack.vim
 " ------------------------------------------------------------------------------
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 noremap <Leader>a :Ack <cword><CR>
 
-" Plug 'Shougo/deoplete.nvim'
+
+" Shougo/deoplete.nvim
 " ------------------------------------------------------------------------------
+" python needs to be in your path.  I use asdf which is currently correct.
+" python -V shows python 3 and not system python on mac. Otherwise, override deoplete options
+" like let g:python3_host_prog = '/path'
 set completeopt+=noselect
-let g:python3_host_prog  = '/usr/local/bin/python3'
-let g:python3_host_skip_check = 1
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
@@ -160,17 +201,104 @@ function! s:check_back_space() abort "{{{
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 
-" Plug 'fatih/vim-go'
+
+" neoclide/coc.nvim
+" ------------------------------------------------------------------------------
+inoremap <silent><expr> <c-space> coc#refresh()
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
+" fatih/vim-go
 " ------------------------------------------------------------------------------
 set autowrite
 
-" Plug 'gabrielelana/vim-markdown'
+
+" gabrielelana/vim-markdown
 " ------------------------------------------------------------------------------
 let g:markdown_enable_spell_checking = 0
 
-" Plug 'mengelbrecht/lightline-bufferline'
+
+" mengelbrecht/lightline-bufferline
 " ------------------------------------------------------------------------------
 set showtabline=2
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
+
+
+" rust-lang/rust.vim
+" ------------------------------------------------------------------------------
+let g:rustfmt_autosave = 1
+
+
+" Shougo/defx.nvim'
+" ------------------------------------------------------------------------------
+" this config length here is crazy, but here we go anyway
+map <leader>x :Defx<CR>
+
+" this is all from `help defx`
+autocmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+        \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> c
+        \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> l
+        \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> E
+        \ defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr> o
+        \ defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr> K
+        \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+        \ defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> d
+        \ defx#do_action('remove')
+  nnoremap <silent><buffer><expr> r
+        \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> h
+        \ defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> q
+        \ defx#do_action('quit')
+  nnoremap <silent><buffer><expr> <C-l>
+        \ defx#do_action('redraw')
+endfunction
+
+
+" janko/vim-test'
+" ------------------------------------------------------------------------------
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+let test#strategy = {
+  \ 'nearest': 'dispatch',
+  \ 'file': 'neovim',
+  \ 'suite': 'basic',
+  \}
+
+
+" airblade/vim-gitgutter
+" ------------------------------------------------------------------------------
+" Jump between hunks
+nmap <Leader>gn <Plug>(GitGutterNextHunk)  " git next
+nmap <Leader>gp <Plug>(GitGutterPrevHunk)  " git previous
+" Hunk-add and hunk-revert for chunk staging
+nmap <Leader>ga <Plug>(GitGutterStageHunk)  " git add (chunk)
+nmap <Leader>gu <Plug>(GitGutterUndoHunk)   " git undo (chunk)
