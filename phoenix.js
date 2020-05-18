@@ -251,18 +251,18 @@
 
   Window.prototype.toTopRight = function() {
     return this.toGrid({
-      x: 0.5,
+      x: 0.55,
       y: 0,
-      width: 0.5,
+      width: 0.45,
       height: 0.5
     });
   };
 
   Window.prototype.toBottomRight = function() {
     return this.toGrid({
-      x: 0.5,
+      x: 0.55,
       y: 0.5,
-      width: 0.5,
+      width: 0.45,
       height: 0.5
     });
   };
@@ -271,7 +271,7 @@
     return this.toGrid({
       x: 0,
       y: 0,
-      width: 0.5,
+      width: 0.45,
       height: 0.5
     });
   };
@@ -280,21 +280,18 @@
     return this.toGrid({
       x: 0,
       y: 0.5,
-      width: 0.5,
+      width: 0.45,
       height: 0.5
     });
   };
 
-  // this is like a centered piece of paper
   Window.prototype.toCenter = function() {
-    var frame;
-    frame = focused().getGrid();
-    frame.x = MARGIN_X;
-    frame.y = MARGIN_Y - (GRID_HEIGHT / 8);
-    frame.width = GRID_WIDTH - MARGIN_X * 2;
-    frame.height = GRID_HEIGHT - MARGIN_Y * 2 + (GRID_HEIGHT / 4);
-
-    return focused().setGrid(frame);
+    return this.toGrid({
+      x: 0.25,
+      y: 0.025,
+      width: 0.5,
+      height: 0.95
+    });
   };
 
   windowLeftOneColumn = function() {
@@ -485,6 +482,34 @@
 
   key_binding(',', 'Grow by One Row', mash, function() {
     return windowGrowOneGridRow();
+  });
+
+  // attempt at making a 3 column layout
+  key_binding('1', 'Browser on Left', mash, function() {
+    focused().toGrid({
+      x: 0,
+      y: 0,
+      width: 0.305,
+      height: 1.00
+    });
+  });
+
+  key_binding('2', 'Code in Middle', mash, function() {
+    focused().toGrid({
+      x: 0.305,
+      y: 0,
+      width: 0.40,
+      height: 1.00
+    });
+  });
+
+  key_binding('3', 'Shell on Right', mash, function() {
+    focused().toGrid({
+      x: 0.703,
+      y: 0,
+      width: 0.3,
+      height: 1.00
+    });
   });
 
   Phoenix.notify("Loaded");
