@@ -12,14 +12,15 @@ if dein#load_state($HOME . '/.vim/bundles')
 
   " To update, run
   " call dein#update()
+  " To cleanup, run echo dein#check_clean() and delete the ones listed from ~/.vim/bundles.  :|
 
   " General plugins
   " ------------------------------------------------------------------------------
   call dein#add('easymotion/vim-easymotion')
   call dein#add('itchyny/lightline.vim')
-  call dein#add('mengelbrecht/lightline-bufferline')
   call dein#add('airblade/vim-gitgutter')
-  call dein#add('ayu-theme/ayu-vim')
+  call dein#add('chriskempson/base16-vim')
+  call dein#add('mike-hearn/base16-vim-lightline')
   call dein#add('janko/vim-test', { 'on_cmd' : [ 'TestFile', 'TestLast', 'TestSuite', 'TestVisit', 'TestNearest' ] })
 
   " FZF - yes you need both of these
@@ -32,6 +33,7 @@ if dein#load_state($HOME . '/.vim/bundles')
   call dein#add('godlygeek/tabular', { 'on_cmd' : [ 'Tab', 'Tabularize' ] , 'augroup' : 'tabular' })
   call dein#add('mileszs/ack.vim', { 'on_cmd' : [ 'Ack' ] })
   call dein#add('Shougo/defx.nvim', { 'on_cmd' : [ 'Defx' ] })
+  call dein#add('Shougo/denite.nvim', { 'on_cmd' : [ 'Denite' ] })
 
   " Tim Pope Land
   " ------------------------------------------------------------------------------
@@ -47,11 +49,20 @@ if dein#load_state($HOME . '/.vim/bundles')
   " Languages
   " ------------------------------------------------------------------------------
   " Go
-  call dein#add('fatih/vim-go', { 'on_ft': [ 'go' ] })
-  call dein#add('zchee/deoplete-go', { 'on_ft': [ 'go' ] })
+  call dein#add('fatih/vim-go', {'on_ft': 'go'})
+  call dein#add('zchee/deoplete-go', {'on_ft': 'go'})
 
   " Rust
-  call dein#add('rust-lang/rust.vim', { 'on_ft': [ 'rust' ] })
+  call dein#add('rust-lang/rust.vim', {'on_ft': 'rust'})
+
+  " Crystal
+  call dein#add('rhysd/vim-crystal', {'on_ft': 'crystal'})
+
+  " Ruby
+  call dein#add('vim-ruby/vim-ruby', {'on_ft': 'ruby'})
+  call dein#add('tpope/vim-rails', {'on_ft': 'ruby'})
+
+  " Typescript
 
   call dein#end()
   call dein#save_state()
@@ -85,15 +96,14 @@ set undofile
 " ==============================================================================
 "  Key Bindings - Documentation, Explanation and Reminders
 " ------------------------------------------------------------------------------
-let mapleader=","                      " define our leader key here
-nnoremap <Tab> :bnext!<CR>             " Tab to change open files forward
+let mapleader=","|                     " define our leader key here
+nnoremap <Tab> :bnext!<CR>|            " Tab to change open files forward
 nnoremap <S-Tab> :bprev!<CR><Paste>|   " Shift+Tab to change files backward
 map <leader>w :w<CR>|                  " save
 map <leader>d :bd<CR>|                 " close buffer
 map <leader>D :BD<CR>|                 " close buffer, leaves split
 map <leader>h :nohl<CR>|               " clear highlight
 map <F2>:r !pbpaste<CR>|               " I can't figure out insert paste mode in this config so F2 pastes
-nmap <leader>/ :Ag<space>
 
 " Insert the date at the top of a dev log
 nmap <leader>N ggi# <C-R>=strftime("%Y-%m-%d - %A")<CR><CR><CR><CR><CR><esc>3ki<CR>
@@ -108,17 +118,29 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Reminders
+" leader s is search (text)
+" leader g is git file search
+" 1ctrl-g is print full path of current file
+
+" GitGutter keys
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
+nmap <leader>hp <Plug>(GitGutterPreviewHunk)
+nmap <leader>hs <Plug>(GitGutterStageHunk)
+nmap <leader>hu <Plug>(GitGutterUndoHunk)
+
 
 " ==============================================================================
 "  Theme and Appearance
 " ------------------------------------------------------------------------------
 set background=light
+let base16colorspace=256
 set termguicolors
 if !has('gui_running')
   set t_Co=256
 endif
-let ayucolor="light"
-colorscheme ayu
+colorscheme base16-harmonic-light
 
 
 " ==============================================================================
@@ -154,8 +176,8 @@ nmap ; :Buffers<CR>
 
 " itchyny/lightline.vim
 " ------------------------------------------------------------------------------
-let g:lightline = { 
-      \ 'colorscheme': 'ayu',
+let g:lightline = {
+      \ 'colorscheme': 'base16_harmonic_light',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -192,14 +214,19 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
+" use tab for autocomplete
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
     \ <SID>check_back_space() ? "\<TAB>" :
     \ deoplete#mappings#manual_complete()
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 function! s:check_back_space() abort "{{{
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
+
+" vim isn't an IDE but an IDE this is
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 
 " neoclide/coc.nvim
@@ -209,7 +236,7 @@ set nobackup
 set nowritebackup
 
 " Better display for messages
-set cmdheight=2
+" set cmdheight=2
 set updatetime=300
 set shortmess+=c
 
@@ -230,14 +257,6 @@ set autowrite
 " gabrielelana/vim-markdown
 " ------------------------------------------------------------------------------
 let g:markdown_enable_spell_checking = 0
-
-
-" mengelbrecht/lightline-bufferline
-" ------------------------------------------------------------------------------
-set showtabline=2
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
 
 
 " rust-lang/rust.vim
@@ -302,3 +321,4 @@ nmap <Leader>gp <Plug>(GitGutterPrevHunk)  " git previous
 " Hunk-add and hunk-revert for chunk staging
 nmap <Leader>ga <Plug>(GitGutterStageHunk)  " git add (chunk)
 nmap <Leader>gu <Plug>(GitGutterUndoHunk)   " git undo (chunk)
+
