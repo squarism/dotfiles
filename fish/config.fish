@@ -14,7 +14,7 @@ if test -e "$HOME/.work_specific.fish";
 end
 
 # asdf for all program language management except for: 
-# python (awscli) and rust (rustup) and java (bleh, terrible plugin)
+# python (awscli) and java (bleh, terrible plugin)
 source /usr/local/opt/asdf/asdf.fish
 
 # Go
@@ -33,8 +33,11 @@ set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
 # Java
 set PATH $HOME/.jenv/bin $PATH
 
-# Ruby
-# chruby 2.6.3
+# Ruby - is asdf managed
+
+# Python
+set pipenv_fish_fancy yes
+# set PATH ~/Library/Python/3.7/bin $PATH
 
 
 # Fish shell customization
@@ -44,5 +47,9 @@ set -g theme_powerline_fonts yes
 
 # Base16 Shell
 if status --is-interactive
-  eval sh $HOME/.config/base16-shell/scripts/base16-ia-light.sh
+  eval sh $HOME/.config/base16-shell/scripts/base16-harmonic-light.sh
 end
+
+# https://github.com/bigH/git-fuzzy
+set PATH ~/local/git-fuzzy/bin $PATH
+set -g GF_PREFERRED_PAGER "delta --theme=GitHub"
