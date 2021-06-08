@@ -17,8 +17,8 @@
   GRID_HEIGHT = 16;
 
   // and this is the grid offsets used for centering etc
-  MARGIN_X = 5;
-  MARGIN_Y = 3;
+  MARGIN_X = 1;
+  MARGIN_Y = 1;
 
 
   _.mixin({
@@ -251,18 +251,18 @@
 
   Window.prototype.toTopRight = function() {
     return this.toGrid({
-      x: 0.55,
+      x: 0.70,
       y: 0,
-      width: 0.45,
+      width: 0.30,
       height: 0.5
     });
   };
 
   Window.prototype.toBottomRight = function() {
     return this.toGrid({
-      x: 0.55,
+      x: 0.70,
       y: 0.5,
-      width: 0.45,
+      width: 0.30,
       height: 0.5
     });
   };
@@ -271,7 +271,7 @@
     return this.toGrid({
       x: 0,
       y: 0,
-      width: 0.45,
+      width: 0.30,
       height: 0.5
     });
   };
@@ -280,17 +280,17 @@
     return this.toGrid({
       x: 0,
       y: 0.5,
-      width: 0.45,
+      width: 0.30,
       height: 0.5
     });
   };
 
   Window.prototype.toCenter = function() {
     return this.toGrid({
-      x: 0.25,
-      y: 0.025,
-      width: 0.5,
-      height: 0.95
+      x: 0.30,
+      y: 0.0,
+      width: 0.4,
+      height: 0.99
     });
   };
 
@@ -489,25 +489,25 @@
     focused().toGrid({
       x: 0,
       y: 0,
-      width: 0.305,
+      width: 0.30,
       height: 1.00
     });
   });
 
   key_binding('2', 'Code in Middle', mash, function() {
     focused().toGrid({
-      x: 0.305,
+      x: 0.30,
       y: 0,
-      width: 0.40,
+      width: 0.45,
       height: 1.00
     });
   });
 
   key_binding('3', 'Shell on Right', mash, function() {
     focused().toGrid({
-      x: 0.703,
+      x: 0.75,
       y: 0,
-      width: 0.3,
+      width: 0.274,
       height: 1.00
     });
   });
