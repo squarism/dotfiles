@@ -1,10 +1,10 @@
-"Dein as the plugin manager for vim
-"dein Scripts-----------------------------
+" Dein as the plugin manager for vim
+" dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
-set runtimepath+=$HOME/.vim/bundles/repos/github.com/Shougo/dein.vim
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state($HOME . '/.vim/bundles')
   call dein#begin($HOME . '/.vim/bundles')
@@ -17,15 +17,16 @@ if dein#load_state($HOME . '/.vim/bundles')
   " General plugins
   " ------------------------------------------------------------------------------
   call dein#add('easymotion/vim-easymotion')
-  call dein#add('itchyny/lightline.vim')
+  " call dein#add('itchyny/lightline.vim')
+  call dein#add('hoob3rt/lualine.nvim')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('chriskempson/base16-vim')
   call dein#add('mike-hearn/base16-vim-lightline')
   call dein#add('janko/vim-test', { 'on_cmd' : [ 'TestFile', 'TestLast', 'TestSuite', 'TestVisit', 'TestNearest' ] })
 
-  " FZF - yes you need both of these
-  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+  " telescope fuzzy finder
+  call dein#add('nvim-lua/plenary.nvim')
+  call dein#add('nvim-telescope/telescope.nvim')
 
   " Language Server for autocomplete
   call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
@@ -38,7 +39,7 @@ if dein#load_state($HOME . '/.vim/bundles')
   " Tim Pope Land
   " ------------------------------------------------------------------------------
   call dein#add('tpope/vim-fugitive', { 'on_cmd': [ 'Git', 'Gstatus', 'Gwrite', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff', ] })
-  call dein#add('tpope/vim-commentary', { 'on_cmd': [ 'Commentary' ] })
+  call dein#add('tpope/vim-commentary')
   call dein#add('tpope/vim-sensible')
   call dein#add('tpope/vim-dispatch')
   call dein#add('tpope/vim-repeat', {'on_map' : '.'})
@@ -63,6 +64,12 @@ if dein#load_state($HOME . '/.vim/bundles')
   call dein#add('tpope/vim-rails', {'on_ft': 'ruby'})
 
   " Typescript
+  " Elixir
+  call dein#add('elixir-lang/vim-elixir', {'on_ft': 'elixir'})
+
+  " TOML
+  call dein#add('cespare/vim-toml', { 'lazy': 1, 'on_ft': 'toml' })
+
 
   call dein#end()
   call dein#save_state()
@@ -106,7 +113,15 @@ map <leader>h :nohl<CR>|               " clear highlight
 map <F2>:r !pbpaste<CR>|               " I can't figure out insert paste mode in this config so F2 pastes
 
 " Insert the date at the top of a dev log
-nmap <leader>N ggi# <C-R>=strftime("%Y-%m-%d - %A")<CR><CR><CR><CR><CR><esc>3ki<CR>
+lua <<EOF
+function _G.date_at_top()
+  local date = string.format("# %s - %s", os.date('%Y-%m-%d'), os.date('%A'))
+  vim.api.nvim_win_set_cursor(0, {1,1})
+  vim.api.nvim_put({date, "", "", "", ""}, "l", false, true)
+  vim.api.nvim_win_set_cursor(0, {3,1})
+end
+EOF
+nmap <leader>N :call v:lua.date_at_top()<CR>
 
 " Abbreviations
 au FileType ruby :iabbr bpry require 'pry'; binding.pry
@@ -166,26 +181,25 @@ au FileType markdown let b:deoplete_disable_auto_complete = 1
 map <SPACE> <Plug>(easymotion-prefix)
 
 
-" junegunn/fzf
+" nvim-telescope/telescope.nvim
 " ------------------------------------------------------------------------------
-nmap <leader>g :GFiles<CR>
-nmap <leader>f :Files<CR>
-nmap <leader>s :Ag<CR>
-nmap ; :Buffers<CR>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 
-" itchyny/lightline.vim
+" hoob3rt/lualine.nvim
 " ------------------------------------------------------------------------------
-let g:lightline = {
-      \ 'colorscheme': 'base16_harmonic_light',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {'gitbranch':'fugitive#head'}
-      \ }
-set noshowmode  " lightline handles the -- INSERT -- feedback
-
+:lua << EOF
+require('lualine').setup {
+  options = {
+    theme = 'ayu_light',
+    icons_enabled = false,
+    separator = '|'
+  }
+}
+EOF
 
 " godlygeek/tabular
 " ------------------------------------------------------------------------------
@@ -235,8 +249,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 set nobackup
 set nowritebackup
 
-" Better display for messages
-" set cmdheight=2
 set updatetime=300
 set shortmess+=c
 
@@ -321,4 +333,3 @@ nmap <Leader>gp <Plug>(GitGutterPrevHunk)  " git previous
 " Hunk-add and hunk-revert for chunk staging
 nmap <Leader>ga <Plug>(GitGutterStageHunk)  " git add (chunk)
 nmap <Leader>gu <Plug>(GitGutterUndoHunk)   " git undo (chunk)
-
