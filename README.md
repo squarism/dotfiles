@@ -1,5 +1,4 @@
 # Dotfiles
-===========
 
 My baseline configs for fresh boxes.  This repo can be used to
 re-baseline a box but it'll stomp on your vim config (after backing it up).
@@ -13,19 +12,12 @@ So this is primarily a "fresh machine" kinda of thing.
   * gemrc - Gets rid of documentation on Ruby gems.
 
 
-Install
--------
+## Install
+
 I'm assuming a clean box here.  **Please** backup your files or really read what these things do.
 
   * Get a version of ZSH 4.3.9+ installed (5.0.0 is ok too)
-  * Get a version of Vim 7.3 installed (7.2 and older is not ok)
-    * ./configure needs to have at least --features=big and --enable-multibyte
-    * I usually configure like this on a box with older packages:
-
-      `./configure --with-features=huge --enable-multibyte --prefix=$HOME/local`
-      * Then add ~/local/bin to your path
-    * If you can install 7.3 or newer with apt-get or yum, skip compiling.
-    * If you installed vim with homebrew, skip compiling.
+  * Get a version of NeoVim installed with Lua support (0.5+)
   * Install [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) like normal
     * curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
   * Install [antigen](https://github.com/zsh-users/antigen):
@@ -34,50 +26,35 @@ I'm assuming a clean box here.  **Please** backup your files or really read what
   * Put my dotfiles into place:
     * `bash install.sh`  (destroys .vimrc)
 
+Instead of ZSH, lately I've been using Fish but I need to switch back to ZSH.
 
-Tmux
-----
+## Tmux
+
 I stole so much from  sorin-ionescu/dot-files here.  I changed a few things here.  Like got rid of mouse switching.  Ctrl-L which normally clears the shell screen switches panes which is a minor concession.  Vim navigation all over the place.  It's well documented from sorin.
 
 
-RVM
------
+## Languages
 I do not use RVM gemsets and instead prefer bundler/Gemfile.  It's only
 annoying for main-style scripts (since you don't have a project
 directory).
 
 
-Vim
------
+## NeoVim
 
-```
-mkdir ~/.vimbundles/
-cd ~/.vimbundles/
+Copy the vim config into `~/.config/nvim/init.vim`.  Then run `:call dein#update()`
 
-TODO: script the below into here
-```
 
-```
-.vimbundles
-ack.vim           nim.vim           vim-blockle       vim-cucumber      vim-haml          vim-ragtag        vim-speeddating
-ag.vim            supertab          vim-buffergator   vim-dispatch      vim-javascript    vim-rails         vim-surround
-bufkill.vim       tabular           vim-bufonly       vim-endwise       vim-json          vim-rake          vim-tbone
-ctrlp.vim         tommorow-theme    vim-bundler       vim-eunuch        vim-markdown      vim-repeat        vim-turbux
-hexmode           unite.vim         vim-coffee-script vim-fugitive      vim-materialtheme vim-rsi           vim-unimpaired
-molokai           vim-abolish       vim-colorschemes  vim-git           vim-pathogen      vim-sensible      vim-vividchalk
-neocomplete.vim   vim-airline       vim-commentary    vim-go            vim-pyte          vim-sleuth        vimfiler.vim
-```
+## Themes
 
-Themes
-----
-Jellybeans is pretty good.  Download the jellybeans iTerm2 theme from [here](https://github.com/qtpi/Jellybeans.itermcolors)
+You will probably pick the them you like.  I like a light theme for usability even if I do prefer dark themes.
+This might change.
 
-    wget https://raw.githubusercontent.com/qtpi/Jellybeans.itermcolors/master/jellybeans.itermcolors
+What I wanted to point out here is that base-16 themes in the shell usually are enough to set the theme.  In the past, I used iTerm themes to set the shell theme.
 
 Current Combo:
-  * iTerm - Flatland
-  * vim - flatland - https://github.com/vivkin/flatland.vim
-  * vim-airline - luna
+  * Fish - base16-harmonic-light
+  * neovim - base16-harmonic-light
+  * lualine (neovim) - ayu_light
 
 
 Phoenix
