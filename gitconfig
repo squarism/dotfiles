@@ -11,4 +11,4 @@
 	helper = osxkeychain
 [alias]
 	co = checkout
-	br = branch
+	b = branch
