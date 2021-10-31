@@ -73,7 +73,7 @@ done
 
 
 echo "Copying over a custom zsh theme called squarism."
-cp squarism.zsh-theme ~/.oh-my-zsh/themes/
+cp squarism.zsh-theme ~/.oh-my-zsh/custom/themes/
 if [ "$?" -eq "0" ]; then
   echo "make sure oh-my-zsh is installed."
 fi
