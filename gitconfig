@@ -2,13 +2,20 @@
   ui = true
 [core]
   pager =
+  excludesfile = ~/.gitignore.global
 [user]
 # fill this in during first run of `git` and then get rid of these
 # TODO: prompt in install script
 #	name = Chris Dillon
 #	email = squarism@gmail.com
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
+[commit]
+  verbose = true
+[branch]
+  autosetupmerge = always
 [alias]
-	co = checkout
-	b = branch
+  co = checkout
+  b = branch
+[init]
+  defaultBranch = main
