@@ -4,14 +4,15 @@ source ~/.config/fish/abbreviations.fish
 ulimit -n 8192
 set -gx EDITOR vim
 
-# Change to autojump default keybindings for the z plugin
-set -U Z_CMD "j"
-
 # For specifics of job or project that are not interesting to anyone else
 # and more importantly not checked into the dotfiles repo.
 if test -e "$HOME/.work_specific.fish";
   source ~/.work_specific.fish
 end
+
+# use zoxide instead of fasd
+zoxide init fish | source
+alias j z
 
 # asdf for all program language management except for: 
 # python (awscli) and java (bleh, terrible plugin)
@@ -27,23 +28,21 @@ set PATH $HOME/.cargo/bin $PATH
 # Crystal
 set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
 
-# Node
-# set PATH ~/.asdf/installs/nodejs/9.11.2/.npm/bin $PATH
-
 # Java
 set PATH $HOME/.jenv/bin $PATH
 
+# Node - is asdf managed
 # Ruby - is asdf managed
-
-# Python
-set pipenv_fish_fancy yes
-# set PATH ~/Library/Python/3.7/bin $PATH
+# Python - is asdf managed with poetry
 
 
 # Fish shell customization
 set fish_greeting ''
 set -g theme_display_date no
 set -g theme_powerline_fonts yes
+# function fish_right_prompt
+  # intentionally left blank
+# end
 
 # Base16 Shell
 if status --is-interactive
@@ -53,3 +52,10 @@ end
 # https://github.com/bigH/git-fuzzy
 set PATH ~/local/git-fuzzy/bin $PATH
 set -g GF_PREFERRED_PAGER "delta --theme=GitHub"
+
+
+# TODO: not automated install instructions:
+# omf install gnuykeaj
+#   omf theme gnuykeaj
+#   sed ) to > in ~/.local/share/omf/themes/gnuykeaj
+# omf install fzf
