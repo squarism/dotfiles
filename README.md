@@ -52,7 +52,7 @@ This might change.
 What I wanted to point out here is that base-16 themes in the shell usually are enough to set the theme.  In the past, I used iTerm themes to set the shell theme.
 
 Current Combo:
-  * Fish - base16-harmonic-light (gnuykeaj theme with `omf install gnuykeaj`) but modified the `>` character at the end
+  * Fish - base16-harmonic-light (gnuykeaj theme with `omf install gnuykeaj`) but modified the `>` character at the end.  How to do this is in `fish/config.fish` at the bottom.
   * neovim - base16-harmonic-light
   * lualine (neovim) - ayu_light
 
