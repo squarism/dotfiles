@@ -249,20 +249,24 @@
     });
   };
 
+  // these change depending on monitor size
+  // for widescreen, 0.30 width works well
+  //   then set x for right sides to 0.70
+  // for 4:3 monitors, 0.5 width works well
   Window.prototype.toTopRight = function() {
     return this.toGrid({
-      x: 0.70,
+      x: 0.5,
       y: 0,
-      width: 0.30,
+      width: 0.5,
       height: 0.5
     });
   };
 
   Window.prototype.toBottomRight = function() {
     return this.toGrid({
-      x: 0.70,
+      x: 0.5,
       y: 0.5,
-      width: 0.30,
+      width: 0.5,
       height: 0.5
     });
   };
@@ -271,7 +275,7 @@
     return this.toGrid({
       x: 0,
       y: 0,
-      width: 0.30,
+      width: 0.5,
       height: 0.5
     });
   };
@@ -280,7 +284,7 @@
     return this.toGrid({
       x: 0,
       y: 0.5,
-      width: 0.30,
+      width: 0.5,
       height: 0.5
     });
   };

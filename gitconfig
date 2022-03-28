@@ -6,8 +6,8 @@
 [user]
 # fill this in during first run of `git` and then get rid of these
 # TODO: prompt in install script
-#	name = Chris Dillon
-#	email = squarism@gmail.com
+#  name = Chris Dillon
+#  email = squarism@gmail.com
 [credential]
   helper = osxkeychain
 [commit]
