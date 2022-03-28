@@ -1,0 +1,58 @@
+## dotfiles @custom @squarism
+clear search | <leader><ESC>
+close buffer | <leader>d
+close buffer and leave split | <leader>D
+insert dev log date | <leader>N
+
+
+## nvim-tree @tree
+toggle | <leader>n
+refresh | <leader>r
+find file | <leader>n
+rename | r
+copy relative path | Y
+delete file | d
+open vertical split | C-v
+open horizontal split | C-x
+open in new tab | C-t
+show hidden files | H
+refresh | R
+collapse all | W
+
+
+## telescope
+find files | <leader>ff
+live grep | <leader>fg
+buffers | <leader>fb
+help tags | <leader>fh
+
+
+## gitsigns @git
+stage hunk | <leader>hs
+reset hunk | <leader>hr
+stage buffer | <leader>hS
+undo stage hunk | <leader>hu
+reset buffer | <leader>hR
+preview hunk | <leader>hp
+annotate | <leader>ha
+toggle current annotate | <leader>ta
+diff this | <leader>hd
+diff this ? | <leader>hD
+toggle deleted | <leader>td
+
+
+## hop @navigation
+hop word | <SPACE><SPACE>
+hop pattern | <SPACE>s
+
+
+## lsp
+vim.lsp.buf.definition | gd
+lua vim.lsp.buf.hover() | K
+lua vim.lsp.buf.implementation() | gD
+lua vim.lsp.buf.signature_help() | <c-k>
+lua vim.lsp.buf.type_definition() | 1gD
+lua vim.lsp.buf.references() | gr
+lua vim.lsp.buf.document_symbol() | g0
+lua vim.lsp.buf.workspace_symbol() | gW
+lua vim.lsp.diagnostic.show_line_diagnostics() | gi

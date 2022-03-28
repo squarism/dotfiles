@@ -1,116 +1,168 @@
-" Dein as the plugin manager for vim
-" dein Scripts-----------------------------
+" Dein Boilerplate
+" -----------------------------------------------------------------
+"   using dein as the plugin manager for vim
+"   not for a lack of trying packer and lua
+" -----------------------------------------------------------------
 if &compatible
-  set nocompatible               " Be iMproved
+  set nocompatible
 endif
-
 set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
-if dein#load_state($HOME . '/.vim/bundles')
-  call dein#begin($HOME . '/.vim/bundles')
-  call dein#add($HOME . '/.vim/bundles/repos/github.com/Shougo/dein.vim')
-
-  " To update, run
-  " call dein#update()
-  " To cleanup, run echo dein#check_clean() and delete the ones listed from ~/.vim/bundles.  :|
-
-  " General plugins
-  " ------------------------------------------------------------------------------
-  call dein#add('easymotion/vim-easymotion')
-  " call dein#add('itchyny/lightline.vim')
-  call dein#add('hoob3rt/lualine.nvim')
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('chriskempson/base16-vim')
-  call dein#add('mike-hearn/base16-vim-lightline')
-  call dein#add('janko/vim-test', { 'on_cmd' : [ 'TestFile', 'TestLast', 'TestSuite', 'TestVisit', 'TestNearest' ] })
-
-  " telescope fuzzy finder
-  call dein#add('nvim-lua/plenary.nvim')
-  call dein#add('nvim-telescope/telescope.nvim')
-
-  " Language Server for autocomplete
-  call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
-
-  call dein#add('godlygeek/tabular', { 'on_cmd' : [ 'Tab', 'Tabularize' ] , 'augroup' : 'tabular' })
-  call dein#add('mileszs/ack.vim', { 'on_cmd' : [ 'Ack' ] })
-  call dein#add('Shougo/defx.nvim', { 'on_cmd' : [ 'Defx' ] })
-  call dein#add('Shougo/denite.nvim', { 'on_cmd' : [ 'Denite' ] })
-
-  " Tim Pope Land
-  " ------------------------------------------------------------------------------
-  call dein#add('tpope/vim-fugitive', { 'on_cmd': [ 'Git', 'Gstatus', 'Gwrite', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff', ] })
-  call dein#add('tpope/vim-commentary')
-  call dein#add('tpope/vim-sensible')
-  call dein#add('tpope/vim-dispatch')
-  call dein#add('tpope/vim-repeat', {'on_map' : '.'})
-  call dein#add('tpope/vim-surround', {'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
-  " fix incrementing of dates
-  call dein#add('tpope/vim-speeddating')
-
-  " Languages
-  " ------------------------------------------------------------------------------
-  " Go
-  call dein#add('fatih/vim-go', {'on_ft': 'go'})
-  call dein#add('zchee/deoplete-go', {'on_ft': 'go'})
-
-  " Rust
-  call dein#add('rust-lang/rust.vim', {'on_ft': 'rust'})
-
-  " Crystal
-  call dein#add('rhysd/vim-crystal', {'on_ft': 'crystal'})
-
-  " Ruby
-  call dein#add('vim-ruby/vim-ruby', {'on_ft': 'ruby'})
-  call dein#add('tpope/vim-rails', {'on_ft': 'ruby'})
-
-  " Typescript
-  " Elixir
-  call dein#add('elixir-lang/vim-elixir', {'on_ft': 'elixir'})
-
-  " TOML
-  call dein#add('cespare/vim-toml', { 'lazy': 1, 'on_ft': 'toml' })
+call dein#begin($HOME . '/.vim/bundles')
+call dein#add($HOME . '/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
 
-  call dein#end()
-  call dein#save_state()
-endif
+" Plugins
+" -----------------------------------------------------------------
+" To update: `call dein#update()`
+" To cleanup: `echo dein#check_clean()` and delete the ones listed from ~/.vim/bundles
+" To reinstall: `call dein#install()` after deleting everything in ~/.vim/bundles
 
+" dependencies
+" .................................................................
+
+" gitsigns and telescope require plenary
+call dein#add('nvim-lua/popup.nvim')
+call dein#add('nvim-lua/plenary.nvim')
+
+
+" general
+" .................................................................
+call dein#add('hoob3rt/lualine.nvim')
+call dein#add('kyazdani42/nvim-web-devicons')
+call dein#add('akinsho/bufferline.nvim')
+call dein#add('kyazdani42/nvim-tree.lua')
+call dein#add('lewis6991/gitsigns.nvim')
+call dein#add('nvim-telescope/telescope.nvim')
+call dein#add('sudormrfbin/cheatsheet.nvim')
+call dein#add('phaazon/hop.nvim')
+
+
+" themes
+" .................................................................
+call dein#add('chriskempson/base16-vim')
+call dein#add('folke/tokyonight.nvim')
+call dein#add('Shatur/neovim-ayu')
+call dein#add('drewtempelmeyer/palenight.vim')
+
+
+" land of tim pope
+" .................................................................
+call dein#add('tpope/vim-commentary')
+
+
+" languages
+" .................................................................
+" call dein#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
+call dein#add('preservim/vim-markdown')
+call dein#add('neovim/nvim-lspconfig')
+call dein#add('nvim-lua/lsp_extensions.nvim')
+call dein#add('nvim-lua/completion-nvim')
+
+lua <<EOF
+local nvim_lsp = require'lspconfig'
+-- function to attach completion when setting up lsp
+
+local on_attach = function(client)
+require'completion'.on_attach(client)
+end
+
+-- Rust
+nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+nvim_lsp.crystalline.setup{}
+
+
+-- Typescript
+nvim_lsp.tsserver.setup({})
+
+
+-- TODO: finish configuring lanugages
+-- Go
+
+
+-- Ruby
+
+
+-- Elixir
+
+
+-- Javascript
+EOF
+
+
+call dein#end()
+call dein#save_state()
 filetype plugin indent on
-
-"End dein Scripts-------------------------
-
-
-" ==============================================================================
-"  Options
-" ------------------------------------------------------------------------------
 syntax enable
-set cursorline
-set nonumber
-set tw=110
-set listchars=trail:·
-set list
-set tabstop=2 shiftwidth=2 expandtab smarttab
-set scrolloff=4 " min lines visible when scrolling
-set fenc=utf-8
-set nobackup
+" end of dein config
+" -----------------------------------------------------------------
+
+
+" Options
+" -----------------------------------------------------------------
+
+" more colors for themes
+set termguicolors
+
+" disable .swap file creation
 set noswapfile
-set autoread
-set hidden
+
+" disable backup file creation
+set nobackup
+
+" status line plugin shows mode
+set noshowmode
+
+" tabs to spaces
+set tabstop=2 shiftwidth=2 expandtab smarttab
+
+" textwidth
+set tw=110
+
+" min lines visible when scrolling
+set scrolloff=4
+
+" setup undo files
 set undodir=~/.vim/undodir
 set undofile
 
+" show trailing whitespace
+set list
+set listchars=trail:·
 
-" ==============================================================================
-"  Key Bindings - Documentation, Explanation and Reminders
+
+
+" Key Bindings - Explanation and Reminders
+" but all these should be more quickly referenced with the cheatsheet <leader>?
 " ------------------------------------------------------------------------------
-let mapleader=","|                     " define our leader key here
-nnoremap <Tab> :bnext!<CR>|            " Tab to change open files forward
-nnoremap <S-Tab> :bprev!<CR><Paste>|   " Shift+Tab to change files backward
-map <leader>w :w<CR>|                  " save
-map <leader>d :bd<CR>|                 " close buffer
-map <leader>D :BD<CR>|                 " close buffer, leaves split
-map <leader>h :nohl<CR>|               " clear highlight
-map <F2>:r !pbpaste<CR>|               " I can't figure out insert paste mode in this config so F2 pastes
+
+" define a leader key
+let mapleader=","
+
+" install new or missing plugins with dein
+" nmap <leader>di :call dein#install()<CR>
+
+" update plugins with dein (not new or missing)
+" nmap <leader>du :call dein#update()<CR>
+
+" list unused plugins here, you have to delete them yourself :(
+" TODO: (suddenly not working)
+" nmap <leader>dc :call dein#check_clean()<CR>
+
+" clear search highlighting
+nnoremap <leader><ESC> :nohlsearch<CR>
+
+" Tab to cycle buffers (file tabs) forward
+nnoremap <Tab> :BufferLineCycleNext<CR>
+
+" Shift+Tab to cycle buffers (file tabs) backward
+nnoremap <S-Tab> :BufferLineCyclePrev<CR>
+
+" close buffer
+map <leader>d :bd<CR>
+
+" close buffer and leave split
+map <leader>D :BD<CR>
 
 " Insert the date at the top of a dev log
 lua <<EOF
@@ -123,213 +175,166 @@ end
 EOF
 nmap <leader>N :call v:lua.date_at_top()<CR>
 
-" Abbreviations
-au FileType ruby :iabbr bpry require 'pry'; binding.pry
-au FileType python :iabbr pdb import ipdb; ipdb.set_trace()
 
-" Changing panes
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" Reminders
-" leader s is search (text)
-" leader g is git file search
-" 1ctrl-g is print full path of current file
-
-" GitGutter keys
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
-nmap <leader>hp <Plug>(GitGutterPreviewHunk)
-nmap <leader>hs <Plug>(GitGutterStageHunk)
-nmap <leader>hu <Plug>(GitGutterUndoHunk)
+" kyazdani42/nvim-tree.lua
+" .................................................................
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
 
 
-" ==============================================================================
-"  Theme and Appearance
+" nvim-telescope/telescope.nvim
+" .................................................................
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+
+" Theme and Appearance
 " ------------------------------------------------------------------------------
-set background=light
+" set background=light
+set background=dark
 let base16colorspace=256
 set termguicolors
 if !has('gui_running')
   set t_Co=256
 endif
-colorscheme base16-harmonic-light
+
+lua <<EOF
+require('ayu').setup({
+    mirage = true,
+    overrides = {}
+})
+EOF
+colorscheme ayu
 
 
-" ==============================================================================
-"  File Types
-" ------------------------------------------------------------------------------
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>T :GoTestFunc<CR>
-au FileType go nmap <leader>i :GoImports<CR>
-au FileType go set listchars=tab:\|\ ,trail:-,extends:>,precedes:<,nbsp:+
-
-au FileType markdown let b:deoplete_disable_auto_complete = 1
-
-
-" ==============================================================================
-"  Plugin Config
+" Configs for plugins
 " ------------------------------------------------------------------------------
 
-" easymotion/vim-easymotion
+" phaazon/hop.nvim
 " ------------------------------------------------------------------------------
-" Use space and then motion(hjkl) keys to popup easymotion.  For example,
-" space+k would give you a motion popup of what lines to jump UP to.
-map <SPACE> <Plug>(easymotion-prefix)
-
-
-" nvim-telescope/telescope.nvim
-" ------------------------------------------------------------------------------
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+lua << END
+require'hop'.setup()
+END
+map <SPACE><SPACE> :HopWord<CR>
+noremap <SPACE>s :HopPattern<CR>
 
 
 " hoob3rt/lualine.nvim
 " ------------------------------------------------------------------------------
-:lua << EOF
+lua << END
 require('lualine').setup {
-  options = {
-    theme = 'ayu_light',
+  options = { 
+    theme = 'ayu_mirage',
     icons_enabled = false,
-    separator = '|'
+    section_separators = '',
+    component_separators = '',
+  }
+}
+END
+
+
+" akinsho/bufferline.nvim
+" ------------------------------------------------------------------------------
+lua << EOF
+require("bufferline").setup{
+  options = {
+    offsets = {{filetype = "NvimTree", text = "File Explorer"}},
   }
 }
 EOF
 
-" godlygeek/tabular
+
+" kyazdani42/nvim-tree.lua
 " ------------------------------------------------------------------------------
-nmap <leader>a= :Tabularize /=<CR>
-vmap <leader>a= :Tabularize /=<CR>
-nmap <leader>a: :Tabularize /:<CR>
-vmap <leader>a: :Tabularize /:<CR>
+lua << END
+require'nvim-tree'.setup {
+  auto_close = true,
+  filters = {
+    dotfiles = true,
+  }
+}
+END
 
 
-" mileszs/ack.vim
+" lewis6991/gitsigns.nvim
 " ------------------------------------------------------------------------------
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-noremap <Leader>a :Ack <cword><CR>
+lua << END
+require('gitsigns').setup {
+  on_attach = function(bufnr)
+    local function map(mode, lhs, rhs, opts)
+        opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+
+    -- Actions
+    map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
+    map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
+    map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
+    map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
+    map('n', '<leader>ha', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+    map('n', '<leader>ta', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+    map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
+    map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
+    map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
+
+    -- Text object
+    map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+    map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end
+}
+END
 
 
-" Shougo/deoplete.nvim
+" sudormrfbin/cheatsheet.nvim
 " ------------------------------------------------------------------------------
-" python needs to be in your path.  I use asdf which is currently correct.
-" python -V shows python 3 and not system python on mac. Otherwise, override deoplete options
-" like let g:python3_host_prog = '/path'
-set completeopt+=noselect
+lua <<END
+require("cheatsheet").setup({
+  bundled_cheatsheets = false,
+})
+END
 
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-
-" use tab for autocomplete
-inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
-
-" vim isn't an IDE but an IDE this is
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-
-" neoclide/coc.nvim
+" preservim/vim-markdown
 " ------------------------------------------------------------------------------
-inoremap <silent><expr> <c-space> coc#refresh()
-set nobackup
-set nowritebackup
+let g:vim_markdown_folding_disabled = 1
 
-set updatetime=300
-set shortmess+=c
 
-" always show signcolumns
+" lsp 
+" ------------------------------------------------------------------------------
+" from https://gist.github.com/jdrouet/bd8965cf13a4dce9d413940d51e57d74
+" Code navigation shortcuts as found in :help lsp
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> gi    <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+
+" Trigger completion with <tab>
+" found in :help completion
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" use <Tab> as trigger keys
+imap <Tab> <Plug>(completion_smart_tab)
+imap <S-Tab> <Plug>(completion_smart_s_tab)
+
 set signcolumn=yes
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 
-" fatih/vim-go
+" 
 " ------------------------------------------------------------------------------
-set autowrite
-
-
-" gabrielelana/vim-markdown
-" ------------------------------------------------------------------------------
-let g:markdown_enable_spell_checking = 0
-
-
-" rust-lang/rust.vim
-" ------------------------------------------------------------------------------
-let g:rustfmt_autosave = 1
-
-
-" Shougo/defx.nvim'
-" ------------------------------------------------------------------------------
-" this config length here is crazy, but here we go anyway
-map <leader>x :Defx<CR>
-
-" this is all from `help defx`
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-        \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> c
-        \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> l
-        \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> E
-        \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> o
-        \ defx#do_action('open_or_close_tree')
-  nnoremap <silent><buffer><expr> K
-        \ defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N
-        \ defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> d
-        \ defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r
-        \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> h
-        \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> q
-        \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <C-l>
-        \ defx#do_action('redraw')
-endfunction
-
-
-" janko/vim-test'
-" ------------------------------------------------------------------------------
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
-let test#strategy = {
-  \ 'nearest': 'dispatch',
-  \ 'file': 'neovim',
-  \ 'suite': 'basic',
-  \}
-
-
-" airblade/vim-gitgutter
-" ------------------------------------------------------------------------------
-" Jump between hunks
-nmap <Leader>gn <Plug>(GitGutterNextHunk)  " git next
-nmap <Leader>gp <Plug>(GitGutterPrevHunk)  " git previous
-" Hunk-add and hunk-revert for chunk staging
-nmap <Leader>ga <Plug>(GitGutterStageHunk)  " git add (chunk)
-nmap <Leader>gu <Plug>(GitGutterUndoHunk)   " git undo (chunk)
