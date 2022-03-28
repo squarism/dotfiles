@@ -1,21 +1,34 @@
 [color]
   ui = true
 [core]
-  pager =
+  pager = delta
   excludesfile = ~/.gitignore.global
 [user]
 # fill this in during first run of `git` and then get rid of these
 # TODO: prompt in install script
-#  name = Chris Dillon
-#  email = squarism@gmail.com
+# name = Chris Dillon
+# email = squarism@gmail.com
 [credential]
   helper = osxkeychain
+
+# delta config
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+    navigate = true  # use n and N to move between diff sections
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
 [commit]
   verbose = true
+
 [branch]
   autosetupmerge = always
 [alias]
   co = checkout
   b = branch
+
+# this will slowly become the default anyway
 [init]
   defaultBranch = main
