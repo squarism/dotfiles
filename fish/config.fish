@@ -58,4 +58,13 @@ set -g GF_PREFERRED_PAGER "delta --theme=GitHub"
 # omf install gnuykeaj
 #   omf theme gnuykeaj
 #   sed ) to > in ~/.local/share/omf/themes/gnuykeaj
+
+# fzf does not seem to cleanly uninstall
 # omf install fzf
+
+# better shell history with mcfly
+mcfly init fish | source
+set -gx MCFLY_LIGHT TRUE
+set -gx MCFLY_RESULTS 50
+set -gx MCFLY_DISABLE_MENU TRUE
+set -gx MCFLY_FUZZY 2
