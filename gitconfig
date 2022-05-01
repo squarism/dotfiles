@@ -1,7 +1,7 @@
 [color]
   ui = true
 [core]
-  pager = delta
+  pager = delta --dark -n
   excludesfile = ~/.gitignore.global
 [user]
 # fill this in during first run of `git` and then get rid of these
@@ -13,13 +13,17 @@
 
 # delta config
 [interactive]
-  diffFilter = delta --color-only
+  diffFilter = delta --color-only --features=interactive
 [delta]
-    navigate = true  # use n and N to move between diff sections
+  features = decorations
+  navigate = true  # use n and N to move between diff sections
+[delta "interactive"]
+  keep-plus-minus-markers = false
+  
 [merge]
-    conflictstyle = diff3
+  conflictstyle = diff3
 [diff]
-    colorMoved = default
+  colorMoved = default
 [commit]
   verbose = true
 
