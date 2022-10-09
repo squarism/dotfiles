@@ -28,14 +28,29 @@ call dein#add('nvim-lua/plenary.nvim')
 
 " general
 " .................................................................
+
+" status line
 call dein#add('hoob3rt/lualine.nvim')
-call dein#add('kyazdani42/nvim-web-devicons')
+
+" buffer line at top
 call dein#add('akinsho/bufferline.nvim')
-call dein#add('kyazdani42/nvim-tree.lua')
+
+" git gutter
 call dein#add('lewis6991/gitsigns.nvim')
+
+" tree nav with icons
+call dein#add('kyazdani42/nvim-web-devicons')
+call dein#add('kyazdani42/nvim-tree.lua')
+
+" modal popup and key reminders
 call dein#add('nvim-telescope/telescope.nvim')
 call dein#add('sudormrfbin/cheatsheet.nvim')
+
+" fast navigation
 call dein#add('phaazon/hop.nvim')
+
+" a todo list plugin (filetype is .tada)
+call dein#add('dewyze/vim-tada')
 
 
 " themes
@@ -57,23 +72,50 @@ call dein#add('tpope/vim-commentary')
 call dein#add('preservim/vim-markdown')
 call dein#add('neovim/nvim-lspconfig')
 call dein#add('nvim-lua/lsp_extensions.nvim')
-call dein#add('nvim-lua/completion-nvim')
+call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' })
 
+
+" Go
+
+" Rust
+
+" Ruby
+
+" Elixir
+
+" Javascript
+
+" Typescript
+
+" Crystal
+call dein#add('elbywan/crystalline')
+call dein#add('vim-crystal/vim-crystal')
+
+" Zig
+call dein#add('ziglang/zig.vim')
+
+
+" LSP Configs
 lua <<EOF
 local nvim_lsp = require'lspconfig'
--- function to attach completion when setting up lsp
 
-local on_attach = function(client)
-require'completion'.on_attach(client)
-end
-
--- Rust
-nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
-nvim_lsp.crystalline.setup{}
+-- | Rust
+-- https://github.com/rust-lang/rust-analyzer/releases
+-- put rust-analyzer in ~/bin
+nvim_lsp.rust_analyzer.setup({})
 
 
--- Typescript
+-- | Typescript
+-- needs a tsconfig.json in project root and an npm packages
+-- npm install -g typescript typescript-language-server
 nvim_lsp.tsserver.setup({})
+
+
+-- | Crystal
+-- no binaries for M1s :(
+-- build from source
+-- asdf plugin also has issues
+nvim_lsp.crystalline.setup({})
 
 
 -- TODO: finish configuring lanugages
@@ -87,19 +129,37 @@ nvim_lsp.tsserver.setup({})
 
 
 -- Javascript
+
+
+-- Zig
+local on_attach = function(_, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
+
+local servers = {'zls'}
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+  }
+end
+
+
 EOF
 
 
 call dein#end()
 call dein#save_state()
 filetype plugin indent on
-syntax enable
 " end of dein config
 " -----------------------------------------------------------------
 
 
+
 " Options
 " -----------------------------------------------------------------
+
+" duh
+syntax enable
 
 " more colors for themes
 set termguicolors
@@ -130,6 +190,8 @@ set undofile
 set list
 set listchars=trail:·
 
+" jury is out on this one
+" set relativenumber
 
 
 " Key Bindings - Explanation and Reminders
@@ -251,7 +313,6 @@ EOF
 " ------------------------------------------------------------------------------
 lua << END
 require'nvim-tree'.setup {
-  auto_close = true,
   filters = {
     dotfiles = true,
   }
@@ -294,6 +355,7 @@ require('gitsigns').setup {
   end
 }
 END
+set signcolumn=yes
 
 
 " sudormrfbin/cheatsheet.nvim
@@ -309,7 +371,7 @@ END
 let g:vim_markdown_folding_disabled = 1
 
 
-" lsp 
+" lsp
 " ------------------------------------------------------------------------------
 " from https://gist.github.com/jdrouet/bd8965cf13a4dce9d413940d51e57d74
 " Code navigation shortcuts as found in :help lsp
@@ -323,18 +385,46 @@ nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gi    <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
-" Trigger completion with <tab>
-" found in :help completion
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" use <Tab> as trigger keys
-imap <Tab> <Plug>(completion_smart_tab)
-imap <S-Tab> <Plug>(completion_smart_s_tab)
-
-set signcolumn=yes
-
-
-" 
+" coc
 " ------------------------------------------------------------------------------
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing extra messages when using completion
+set shortmess+=c
+
+" Code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Checkout :h coc-completion for details.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
+  " remap for complete to use tab and <cr>
+  inoremap <silent><expr> <TAB>
+        \ coc#pum#visible() ? coc#pum#next(1):
+        \ <SID>check_back_space() ? "\<Tab>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+  inoremap <silent><expr> <c-space> coc#refresh()
+
+  hi CocSearch ctermfg=12 guifg=#18A3FF
+  hi CocMenuSel ctermbg=109 guibg=#13354A
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+" Goto previous/next diagnostic warning/error
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+
+" dewyze/vim-tada
+" ------------------------------------------------------------------------------
+let g:tada_todo_switch_status_mapping='<leader>t'
+
