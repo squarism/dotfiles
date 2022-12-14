@@ -1,0 +1,21 @@
+#!/usr/bin/env fish
+
+if test (count $argv) -lt 1 -o "$argv[1]" = "--help"
+  echo "post_packages [language]"
+  echo "  This is a script to install common packages for a language"
+  echo "  For example pry in Ruby after installing a new Ruby version"
+  echo "  with asdf.  `post_packages ruby`"
+  exit 0
+end
+
+set lang $argv[1]
+
+switch $lang
+  case ruby
+    gem install pry rails solargraph
+  case rust
+    cargo install bacon cargo-watch trippy
+  case "*"
+    echo I don\'t know the language:\'$lang\' to postinstall packages for.
+end
+
