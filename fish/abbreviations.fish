@@ -2,6 +2,7 @@ abbr -a -U -- ... 'cd ../..'
 abbr -a -U -- b bundle
 abbr -a -U -- be 'bundle exec'
 abbr -a -U -- dcu 'docker-compose up'
+abbr -a -U -- dps docker\ ps\ --format\ \"table\ \{\{.ID\}\}\\t\{\{.Image\}\}\\t\{\{.Names\}\}\\t\{\{.Status\}\}\"
 abbr -a -U -- ec 'iex -S mix'
 abbr -a -U -- g git
 abbr -a -U -- glg 'git log --graph --oneline --decorate --color'
