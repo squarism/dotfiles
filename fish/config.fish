@@ -14,9 +14,8 @@ end
 zoxide init fish | source
 alias j z
 
-# asdf for all program language management except for: 
-# python (awscli) and java (bleh, terrible plugin)
-source /usr/local/opt/asdf/asdf.fish
+# rtx for all language installs
+rtx activate -q fish | source
 
 # Go
 set -x GOPATH ~/go
