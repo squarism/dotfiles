@@ -1,6 +1,9 @@
 source ~/.config/fish/path.fish
 source ~/.config/fish/abbreviations.fish
 
+# the way you set user paths is with fish_add_path
+# either one-off in the shell or in configs
+
 ulimit -n 8192
 set -gx EDITOR vim
 
@@ -12,9 +15,13 @@ end
 
 # use zoxide instead of fasd
 zoxide init fish | source
+# yer just going to have to get used to it
+# learn z so that zi becomes natural
 alias j z
 
-# rtx for all language installs
+
+# rtx for all language installs except the ones below
+# rtx is installed with homebrew
 rtx activate -q fish | source
 
 # Go
@@ -30,23 +37,23 @@ set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
 # Java
 set PATH $HOME/.jenv/bin $PATH
 
-# Node - is asdf managed
-# Ruby - is asdf managed
-# Python - is asdf managed with poetry
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
 
 
 # Fish shell customization
 set fish_greeting ''
 set -g theme_display_date no
 set -g theme_powerline_fonts yes
-# function fish_right_prompt
-  # intentionally left blank
-# end
+
 
 # Base16 Shell
 if status --is-interactive
   eval sh $HOME/.config/base16-shell/scripts/base16-harmonic-light.sh
 end
+
 
 # https://github.com/bigH/git-fuzzy
 set PATH ~/local/git-fuzzy/bin $PATH
@@ -61,9 +68,18 @@ set -g GF_PREFERRED_PAGER "delta --theme=GitHub"
 # fzf does not seem to cleanly uninstall
 # omf install fzf
 
+
 # better shell history with mcfly
 mcfly init fish | source
 set -gx MCFLY_LIGHT TRUE
 set -gx MCFLY_RESULTS 50
 set -gx MCFLY_DISABLE_MENU TRUE
-set -gx MCFLY_FUZZY 2
+
+
+# homebrew (for gnu-tar at the very least)
+set PATH /opt/homebrew/opt/gnu-tar/libexec/gnubin $PATH
+
+
+# curl CVE workaround
+set gnucurl (brew --prefix curl)/bin/curl
+alias curl $gnucurl
