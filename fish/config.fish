@@ -1,6 +1,9 @@
 source ~/.config/fish/path.fish
 source ~/.config/fish/abbreviations.fish
 
+# homebrew install
+eval (/opt/homebrew/bin/brew shellenv)
+
 # the way you set user paths is with fish_add_path
 # either one-off in the shell or in configs
 
@@ -71,15 +74,16 @@ set -g GF_PREFERRED_PAGER "delta --theme=GitHub"
 
 # better shell history with mcfly
 mcfly init fish | source
-set -gx MCFLY_LIGHT TRUE
 set -gx MCFLY_RESULTS 50
-set -gx MCFLY_DISABLE_MENU TRUE
+set -gx MCFLY_KEY_SCHEME vim
+# on a light theme, enable this
+# set -gx MCFLY_LIGHT TRUE
 
 
 # homebrew (for gnu-tar at the very least)
-set PATH /opt/homebrew/opt/gnu-tar/libexec/gnubin $PATH
+# set PATH /opt/homebrew/opt/gnu-tar/libexec/gnubin $PATH
 
 
-# curl CVE workaround
+# curl CVE workaround, install curl 8.4.0+ with homebrew
 set gnucurl (brew --prefix curl)/bin/curl
 alias curl $gnucurl
