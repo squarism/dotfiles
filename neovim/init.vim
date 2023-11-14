@@ -52,13 +52,15 @@ call dein#add('phaazon/hop.nvim')
 " a todo list plugin (filetype is .tada)
 call dein#add('dewyze/vim-tada')
 
+" less large cursor
+set guicursor+=n:ver20-Cursor/lCursor
+
 
 " themes
 " .................................................................
 call dein#add('chriskempson/base16-vim')
-call dein#add('folke/tokyonight.nvim')
 call dein#add('Shatur/neovim-ayu')
-call dein#add('drewtempelmeyer/palenight.vim')
+call dein#add('LunarVim/horizon.nvim')
 
 
 " land of tim pope
@@ -68,14 +70,11 @@ call dein#add('tpope/vim-commentary')
 
 " languages
 " .................................................................
-" call dein#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
 call dein#add('preservim/vim-markdown')
 call dein#add('neovim/nvim-lspconfig')
 call dein#add('nvim-lua/lsp_extensions.nvim')
 call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' })
 
-
-" Go
 
 " Rust
 
@@ -161,6 +160,9 @@ filetype plugin indent on
 " duh
 syntax enable
 
+" disable mouse
+set mouse=
+
 " more colors for themes
 set termguicolors
 
@@ -193,6 +195,13 @@ set listchars=trail:·
 " jury is out on this one
 " set relativenumber
 
+" search highlighting tweaks
+set nohlsearch
+set incsearch
+
+" options to look at
+" smartindent?
+
 
 " Key Bindings - Explanation and Reminders
 " but all these should be more quickly referenced with the cheatsheet <leader>?
@@ -210,9 +219,6 @@ let mapleader=","
 " list unused plugins here, you have to delete them yourself :(
 " TODO: (suddenly not working)
 " nmap <leader>dc :call dein#check_clean()<CR>
-
-" clear search highlighting
-nnoremap <leader><ESC> :nohlsearch<CR>
 
 " Tab to cycle buffers (file tabs) forward
 nnoremap <Tab> :BufferLineCycleNext<CR>
@@ -263,13 +269,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 
-lua <<EOF
-require('ayu').setup({
-    mirage = true,
-    overrides = {}
-})
-EOF
-colorscheme ayu
+colorscheme horizon
 
 
 " Configs for plugins
@@ -289,7 +289,7 @@ noremap <SPACE>s :HopPattern<CR>
 lua << END
 require('lualine').setup {
   options = { 
-    theme = 'ayu_mirage',
+    theme = 'horizon',
     icons_enabled = false,
     section_separators = '',
     component_separators = '',

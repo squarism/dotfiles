@@ -1,8 +1,9 @@
-source ~/.config/fish/path.fish
-source ~/.config/fish/abbreviations.fish
-
 # homebrew install
 eval (/opt/homebrew/bin/brew shellenv)
+
+# fish stuff
+source ~/.config/fish/path.fish
+source ~/.config/fish/abbreviations.fish
 
 # the way you set user paths is with fish_add_path
 # either one-off in the shell or in configs
@@ -33,12 +34,12 @@ set -gx PATH $PATH ~/go/bin
 
 # Rust
 set PATH $HOME/.cargo/bin $PATH
+# so rtx installs don't get warnings when upgrading
+set -x RUSTUP_INIT_SKIP_PATH_CHECK yes
+alias rust-musl-builder 'docker run --rm -it -v "$(pwd)":/home/rust/src messense/rust-musl-cross:x86_64-musl'
 
 # Crystal
-set -gx PKG_CONFIG_PATH "/usr/local/opt/openssl/lib/pkgconfig"
-
-# Java
-set PATH $HOME/.jenv/bin $PATH
+# set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl/lib/pkgconfig"
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
@@ -53,31 +54,38 @@ set -g theme_powerline_fonts yes
 
 
 # Base16 Shell
-if status --is-interactive
-  eval sh $HOME/.config/base16-shell/scripts/base16-harmonic-light.sh
-end
+# ok, so here's the deal.  We could set the colors inside the shell
+# but then it impacts other apps like the terminal in vscode
+# so why not just set colors in iTerm2 itself?  I used to do this
+# and thought the shell was cooler.  But now I see the problem.
+# Also, doesn't this run on init everytime?!
+# Grab `Horizon` from https://github.com/slavkobojanic/horizon-iterm
 
+# if status --is-interactive
+#  eval sh $HOME/.config/base16-shell/scripts/base16-material.sh
+# end
 
 # https://github.com/bigH/git-fuzzy
 set PATH ~/local/git-fuzzy/bin $PATH
 set -g GF_PREFERRED_PAGER "delta --theme=GitHub"
 
 
-# TODO: not automated install instructions:
-# omf install gnuykeaj
-#   omf theme gnuykeaj
-#   sed ) to > in ~/.local/share/omf/themes/gnuykeaj
+# TODO: not automated
+# install fisher, then
+# - fisher install kidonng/zoxide.fish
+# - fisher install pure-fish/pure
+#   (tide configure)
 
-# fzf does not seem to cleanly uninstall
-# omf install fzf
-
+ # TODO: what is fish trying to do here?
+ # if status is-interactive
+ # end
 
 # better shell history with mcfly
 mcfly init fish | source
+# on a light theme, enable this
+# set -gx MCFLY_LIGHT FALSE
 set -gx MCFLY_RESULTS 50
 set -gx MCFLY_KEY_SCHEME vim
-# on a light theme, enable this
-# set -gx MCFLY_LIGHT TRUE
 
 
 # homebrew (for gnu-tar at the very least)
