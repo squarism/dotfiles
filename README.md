@@ -4,7 +4,8 @@ My baseline configs for fresh boxes.  This repo can be used to
 re-baseline a box but it'll stomp on your vim config (after backing it up).
 So this is primarily a "fresh machine" kinda of thing.
 
-  * fish (with fisher)
+  * fish
+  * fisher fish package manager
   * neovim config
   * phoenix desktop manager
   * gitconfig
@@ -20,6 +21,15 @@ The rest of the configs are vestigal and will be removed one day:
 I used to have an install script but things have simplified a bunch and I don't have CI for new boxes.
 
 
+## Fish
+
+I use very few fish plugins.  I find [fisher](https://github.com/jorgebucaran/fisher) to be the easiest to install and write for so that's what I use.
+
+* [zoxide](https://github.com/kidonng/zoxide.fish)
+* [pure](https://github.com/pure-fish/pure)
+* my own [lockrebase](https://github.com/squarism/lockrebase) ;)
+
+
 ## NeoVim
 
 Copy the vim config into `~/.config/nvim/init.vim`.  Then run `:call dein#install()`.
@@ -30,15 +40,17 @@ Access the cheatsheet with `<leader>?`.  Leader is `,`.
 
 ## Themes
 
-You will probably pick the them you like.  I like a light theme for usability even if I do prefer dark themes.
+You will probably pick the theme you like.  I like a light theme for consistency because of the web even if I do prefer dark themes.
 This might change.
 
-What I wanted to point out here is that base-16 themes in the shell usually are enough to set the theme.  In the past, I used iTerm themes to set the shell theme.
+💡 In the past, I used to use base16 themes to set the shell theme and ignore iTerm.  I have flip-flopped on this but have found that having iTerm2 set the theme is the best for consistency.
 
-Current Combo:
-  * Fish - base16-harmonic-light (gnuykeaj theme installed with `fisher` - TODO) but modified the `>` character at the end.  How to do this is in `fish/config.fish` at the bottom.
+Current Theme Setup (this changes often):
+
+  * Fish - ([pure](https://github.com/pure-fish/pure) theme installed with `fisher`)
   * neovim - base16-harmonic-light
   * lualine (neovim) - ayu_light
+  * iTerm2 - Either [Ayu Mirage](https://github.com/michelegera/iterm2-ayu-mirage) for a light theme or a combo of gruvbox themes for iTerm2, vim and vscode for a dark theme.
 
 
 Phoenix
