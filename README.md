@@ -4,12 +4,12 @@ My baseline configs for fresh boxes.  This repo can be used to
 re-baseline a box but it'll stomp on your vim config (after backing it up).
 So this is primarily a "fresh machine" kinda of thing.
 
-  * fish
+  * fish (with fisher)
   * neovim config
   * phoenix desktop manager
   * gitconfig
 
-The rest of the configs are vestigal
+The rest of the configs are vestigal and will be removed one day:
   * zsh
   * weechat and irssi IRC defaults.
   * gemrc - Gets rid of documentation on Ruby gems.
@@ -36,7 +36,7 @@ This might change.
 What I wanted to point out here is that base-16 themes in the shell usually are enough to set the theme.  In the past, I used iTerm themes to set the shell theme.
 
 Current Combo:
-  * Fish - base16-harmonic-light (gnuykeaj theme with `omf install gnuykeaj`) but modified the `>` character at the end.  How to do this is in `fish/config.fish` at the bottom.
+  * Fish - base16-harmonic-light (gnuykeaj theme installed with `fisher` - TODO) but modified the `>` character at the end.  How to do this is in `fish/config.fish` at the bottom.
   * neovim - base16-harmonic-light
   * lualine (neovim) - ayu_light
 
