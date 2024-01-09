@@ -23,10 +23,10 @@ zoxide init fish | source
 # learn z so that zi becomes natural
 alias j z
 
+# asdf every-language manager `brew install asdf`
+# previously rtx (now mise), previously asdf, round and round we go
+source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
-# rtx for all language installs except the ones below
-# rtx is installed with homebrew
-rtx activate -q fish | source
 
 # Go
 set -x GOPATH ~/go
