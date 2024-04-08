@@ -17,6 +17,7 @@
 # abbr -a -U -- locate mdfind
 # abbr -a -U -- nr 'pnpm run'
 # abbr -a -U -- pr 'poetry run'
+# abbr -a -U -- random_passwd 'openssl rand -hex 16'
 # abbr -a -U -- redis redis-cli
 # abbr -a -U -- sanity 'bundle exec rake db:reset RAILS_ENV=test; bundle exec rspec --fail-fast; if test $status = 0; bundle exec rubocop; yarn test; end'
 # abbr -a -U -- squash 'git commit -m "squash"; git rebase -i head~2'
