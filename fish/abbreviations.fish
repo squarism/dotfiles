@@ -14,6 +14,7 @@
 # abbr -a -U -- gst 'git status'
 # abbr -a -U -- gcan! 'git commit -v -a --no-edit --amend'
 # abbr -a -U -- listening 'lsof -Pn -i | grep LISTEN'
+# abbr -a -U -- ls eza
 # abbr -a -U -- locate mdfind
 # abbr -a -U -- nr 'pnpm run'
 # abbr -a -U -- pr 'poetry run'
@@ -21,7 +22,7 @@
 # abbr -a -U -- redis redis-cli
 # abbr -a -U -- sanity 'bundle exec rake db:reset RAILS_ENV=test; bundle exec rspec --fail-fast; if test $status = 0; bundle exec rubocop; yarn test; end'
 # abbr -a -U -- squash 'git commit -m "squash"; git rebase -i head~2'
-# abbr -a -U -- t 'exa -l -T -L 2 --header --git-ignore -F -d -I node_modules'
+# abbr -a -U -- t 'eza -l -T -L 2 --header --git-ignore -F -d -I node_modules'
 # abbr -a -U -- telnet 'nc -vz'
 # abbr -a -U -- uuidgen uuidgen\ \|\ tr\ \'\[:upper:\]\'\ \'\[:lower:\]\'
 # abbr -a -U -- vi nvim
