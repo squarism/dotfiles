@@ -11,6 +11,9 @@ source ~/.config/fish/abbreviations.fish
 ulimit -n 8192
 set -gx EDITOR vim
 
+# mac's ifconfig is too noisy
+alias ip 'ifconfig | grep -E "inet |en[0-9]:" | grep -v 127.0.0.1 | awk \'{if($1 ~ /en/){iface=$1} else if($1=="inet") print iface, $2}\''
+
 # For specifics of job or project that are not interesting to anyone else
 # and more importantly not checked into the dotfiles repo.
 if test -e "$HOME/.work_specific.fish";
@@ -76,9 +79,9 @@ set -g GF_PREFERRED_PAGER "delta --theme=GitHub"
 # - fisher install pure-fish/pure
 #   (tide configure)
 
- # TODO: what is fish trying to do here?
- # if status is-interactive
- # end
+# TODO: what is fish trying to do here?
+# if status is-interactive
+# end
 
 # better shell history with mcfly
 mcfly init fish | source
@@ -95,3 +98,11 @@ set -gx MCFLY_KEY_SCHEME vim
 # curl CVE workaround, install curl 8.4.0+ with homebrew
 set gnucurl (brew --prefix curl)/bin/curl
 alias curl $gnucurl
+
+# pnpm
+set -gx PNPM_HOME "~/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+
