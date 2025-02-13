@@ -7,7 +7,7 @@ So this is primarily a "fresh machine" kinda of thing.
   * fish
   * fisher fish package manager
   * neovim config
-  * phoenix desktop manager
+  * aerospace window manager
   * gitconfig
 
 The rest of the configs are vestigal and will be removed one day:
@@ -53,34 +53,22 @@ Current Theme Setup (this changes often):
   * iTerm2 - Either [Ayu Mirage](https://github.com/michelegera/iterm2-ayu-mirage) for a light theme or a combo of gruvbox themes for iTerm2, vim and vscode for a dark theme.
 
 
-Phoenix
+Aerospace
 -----
-[Phoenix](https://github.com/jasonm23/phoenix) allows you to quickly
-arrange windows on OSX, sort of like Xmonad.  You'll need to install it
-first (the instructions are easy).  The
-[config I use](https://github.com/jasonm23/Phoenix-config/blob/master/.phoenix.litcoffee)
-is from the wiki there.  The original is in coffeescript and has to be
-compiled to JS.  The phoenix.js file in this repo is already convered
-and edited a little bit.  Here are the key-combinations I use everyday.
+I switched from [Phoenix](https://github.com/jasonm23/phoenix) to Aerospace.
+Aerospace seems to fill both needs of arrangement that Phoenix does and replacing the slow animation speed of
+Spaces.
 
-> Ctrl-Option-Command starts everything.  From here on out, Ctrl-Option-Command is "mash".
+I started off with the [default
+config](https://github.com/nikitabobko/AeroSpace/blob/main/docs/config-examples/default-config.toml) as it
+seems to do what I need it to do.  This repo will track any customizations I do.
 
-    <Mash> + Left Arrow = Push window to the left
-    <Mash> + Right Arrow = Push window to the right
+    # install aerospace, follow their instructions
 
-    You can move a window into quads with these four keys:
-    <Mash> + ...
-                   Screen Corners
-                  ----------------
-                  |  Q   |   W   |
-                  |  A   |   S   |
-                  ----------------
-
-The rest of the keys are on the wiki (with a nice diagram too).
-
-The installer does not copy this file as it's not really "unixy".  If you use Phoenix or just want to try using a nice starting config, copy it and Phoenix will automatically load it.
-
-  cp phoenix.js ~/.phoenix.js
+    # copy the config from this repo into place
+    mkdir ~/.config/aerospace
+    cp aerospace.toml ~/.config/aerospace
+    # reload aerospace from the menubar option
 
 
 Irssi
