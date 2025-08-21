@@ -7,7 +7,7 @@ So this is primarily a "fresh machine" kinda of thing.
   * fish
   * fisher fish package manager
   * neovim config
-  * aerospace window manager
+  * phoenix (ignore AeroSpace)
   * gitconfig
 
 The rest of the configs are vestigal and will be removed one day:
@@ -53,11 +53,13 @@ Current Theme Setup (this changes often):
   * iTerm2 - Either [Ayu Mirage](https://github.com/michelegera/iterm2-ayu-mirage) for a light theme or a combo of gruvbox themes for iTerm2, vim and vscode for a dark theme.
 
 
-Aerospace
------
+## Aerospace
+
 I switched from [Phoenix](https://github.com/jasonm23/phoenix) to Aerospace.
 Aerospace seems to fill both needs of arrangement that Phoenix does and replacing the slow animation speed of
 Spaces.
+
+_nope: I'm still using phoenix with slow animation_
 
 I started off with the [default
 config](https://github.com/nikitabobko/AeroSpace/blob/main/docs/config-examples/default-config.toml) as it
@@ -71,8 +73,8 @@ seems to do what I need it to do.  This repo will track any customizations I do.
     # reload aerospace from the menubar option
 
 
-Irssi
----
+## Irssi
+
 My config just adds a shortcut for freenode to auto-authenticate.
 This can also be achieved by doing this:
 
@@ -87,6 +89,13 @@ Edit ~/.irssi/config and change the `CHANGEME` bits.
 ## Tmux
 
 I stole so much from  sorin-ionescu/dot-files here.  I changed a few things here.  Like got rid of mouse switching.  Ctrl-L which normally clears the shell screen switches panes which is a minor concession.  Vim navigation all over the place.  It's well documented from sorin.
+
+
+## Terminal
+
+I like ghostty but the terminfo thing is annoying, wezterm for now even though it doesn't have a quick
+terminal which I would really like for my devlog thing (on my blog).  Ghostty seems to burn energy
+with no process in it.
 
 
 ## Languages
