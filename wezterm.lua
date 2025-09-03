@@ -12,6 +12,9 @@ return {
   native_macos_fullscreen_mode = false,
   scrollback_lines = 9000,
 
+  -- disable mouse wheel as arrow keys
+  alternate_buffer_wheel_scroll_speed = 0,
+
 
   -- Font
   font = wezterm.font("FiraCode Nerd Font", { weight = "Regular" }),
@@ -26,6 +29,8 @@ return {
   -- Window decorations & padding
   window_decorations = "RESIZE",
   window_padding = { left = 5, right = 5, top = 5, bottom = 5 },
+  initial_cols = 120,
+  initial_rows = 39,
 
 
   -- Mouse
