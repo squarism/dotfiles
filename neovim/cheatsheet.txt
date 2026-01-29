@@ -6,7 +6,7 @@ insert dev log date | <leader>N
 
 
 ## nvim-tree @tree
-toggle | <leader>n
+toggle | Ctrl-n
 refresh | <leader>r
 find file | <leader>n
 rename | r
@@ -47,12 +47,7 @@ hop pattern | <SPACE>s
 
 
 ## lsp
+problems | ]d or [d
+errors | <leader>e
+hover signature | K
 vim.lsp.buf.definition | gd
-lua vim.lsp.buf.hover() | K
-lua vim.lsp.buf.implementation() | gD
-lua vim.lsp.buf.signature_help() | <c-k>
-lua vim.lsp.buf.type_definition() | 1gD
-lua vim.lsp.buf.references() | gr
-lua vim.lsp.buf.document_symbol() | g0
-lua vim.lsp.buf.workspace_symbol() | gW
-lua vim.lsp.diagnostic.show_line_diagnostics() | gi

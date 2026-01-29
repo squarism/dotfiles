@@ -1,4 +1,5 @@
 " Dein Boilerplate
+" Boilerplate
 " -----------------------------------------------------------------
 "   using dein as the plugin manager for vim
 "   not for a lack of trying packer and lua
@@ -68,13 +69,141 @@ call dein#add('LunarVim/horizon.nvim')
 call dein#add('tpope/vim-commentary')
 
 
-" languages
+" LSP plugins
+" .................................................................
+call dein#add('neovim/nvim-lspconfig')
+call dein#add('hrsh7th/nvim-cmp')
+call dein#add('hrsh7th/cmp-nvim-lsp')
+call dein#add('hrsh7th/cmp-buffer')
+call dein#add('hrsh7th/cmp-path')
+
+lua << EOF
+local cmp = require'cmp'
+
+cmp.setup({
+  completion = {
+    autocomplete = false,
+  },
+
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+
+  sources = cmp.config.sources({
+  {
+    name = 'nvim_lsp',
+    entry_filter = function(entry, ctx)
+      -- Prioritize methods, functions, classes, modules/packages
+      local kind = entry:get_kind()
+      local priority_kinds = {
+        [2] = true,  -- Method
+        [3] = true,  -- Function
+        [4] = true,  -- Constructor
+        [5] = true,  -- Field
+        [6] = true,  -- Variable
+        [7] = true,  -- Class
+        [8] = true,  -- Interface
+        [9] = true,  -- Module
+        [10] = true, -- Property
+      }
+      return priority_kinds[kind] or false
+    end
+   },
+  }, {
+    { name = 'path' },
+  })
+})
+
+local lspconfig = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- Rust
+lspconfig.rust_analyzer.setup({
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      assist = {
+        importGranularity = "module",
+        importPrefix = "by_self",
+      },
+      cargo = {
+        loadOutDirsFromCheck = true,
+      },
+      procMacro = {
+        enable = true,
+      },
+    }
+  }
+})
+
+-- TypeScript
+lspconfig.ts_ls.setup({
+  capabilities = capabilities,
+})
+
+-- more servers as needed ...
+
+-- LSP keybindings
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<leader>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+
+    -- Diagnostics
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+  end,
+})
+
+-- disable nvim completion to avoid conflicts
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.opt.complete = ''
+EOF
+
+
+
+" Languages
 " .................................................................
 call dein#add('preservim/vim-markdown')
-call dein#add('neovim/nvim-lspconfig')
-call dein#add('nvim-lua/lsp_extensions.nvim')
-call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' })
-
 
 " Rust
 
@@ -94,56 +223,6 @@ call dein#add('vim-crystal/vim-crystal')
 call dein#add('ziglang/zig.vim')
 
 
-" LSP Configs
-lua <<EOF
-local nvim_lsp = require'lspconfig'
-
--- | Rust
--- https://github.com/rust-lang/rust-analyzer/releases
--- put rust-analyzer in ~/bin
-nvim_lsp.rust_analyzer.setup({})
-
-
--- | Typescript
--- needs a tsconfig.json in project root and an npm packages
--- npm install -g typescript typescript-language-server
-nvim_lsp.tsserver.setup({})
-
-
--- | Crystal
--- no binaries for M1s :(
--- build from source
--- asdf plugin also has issues
-nvim_lsp.crystalline.setup({})
-
-
--- TODO: finish configuring lanugages
--- Go
-
-
--- Ruby
-
-
--- Elixir
-
-
--- Javascript
-
-
--- Zig
-local on_attach = function(_, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-end
-
-local servers = {'zls'}
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-  }
-end
-
-
-EOF
 
 
 call dein#end()
@@ -269,7 +348,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 
-colorscheme horizon
+colorscheme base16-twilight
 
 
 " Configs for plugins
@@ -289,7 +368,7 @@ noremap <SPACE>s :HopPattern<CR>
 lua << END
 require('lualine').setup {
   options = { 
-    theme = 'horizon',
+    theme = 'seoul256',
     icons_enabled = false,
     section_separators = '',
     component_separators = '',
@@ -385,43 +464,6 @@ nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gi    <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
-
-" coc
-" ------------------------------------------------------------------------------
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-
-" Avoid showing extra messages when using completion
-set shortmess+=c
-
-" Code navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Checkout :h coc-completion for details.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-  inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
-  " remap for complete to use tab and <cr>
-  inoremap <silent><expr> <TAB>
-        \ coc#pum#visible() ? coc#pum#next(1):
-        \ <SID>check_back_space() ? "\<Tab>" :
-        \ coc#refresh()
-  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-  inoremap <silent><expr> <c-space> coc#refresh()
-
-  hi CocSearch ctermfg=12 guifg=#18A3FF
-  hi CocMenuSel ctermbg=109 guibg=#13354A
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-
-" Goto previous/next diagnostic warning/error
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 
 " dewyze/vim-tada
