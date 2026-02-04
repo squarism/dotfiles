@@ -1,3 +1,0 @@
-# I know when I want a plugin to be updated, it's when a new version comes out
-# so I don't need rtx to git clone on every shell login
-plugin_autoupdate_last_check_duration = 0

@@ -1,7 +1,3 @@
-# homebrew install
-eval (/opt/homebrew/bin/brew shellenv)
-
-# fish stuff
 source ~/.config/fish/path.fish
 source ~/.config/fish/abbreviations.fish
 
@@ -11,54 +7,33 @@ source ~/.config/fish/abbreviations.fish
 ulimit -n 8192
 set -gx EDITOR vim
 
-# mac's ifconfig is too noisy
-alias ip 'ifconfig | grep -E "inet |en[0-9]:" | grep -v 127.0.0.1 | awk \'{if($1 ~ /en/){iface=$1} else if($1=="inet") print iface, $2}\''
-
 # For specifics of job or project that are not interesting to anyone else
 # and more importantly not checked into the dotfiles repo.
-if test -e "$HOME/.work_specific.fish";
-  source ~/.work_specific.fish
+if test -e "$HOME/.box_specific.fish";
+  source ~/.box_specific.fish
 end
 
 # use zoxide instead of fasd
 zoxide init fish | source
-# yer just going to have to get used to it
-# learn z so that zi becomes natural
-alias j z
 
-# asdf every-language manager `brew install asdf`
-# previously rtx (now mise), previously asdf
-if test -z $ASDF_DATA_DIR
-    set _asdf_shims "$HOME/.asdf/shims"
-else
-    set _asdf_shims "$ASDF_DATA_DIR/shims"
-end
+# Use the language manager mise instead of asdf
+# Installed with homebrew
+# Homebrew handles activation but not completions apparently
+mise completions fish | source
 
-# Do not use fish_add_path (added in Fish 3.2) because it
-# potentially changes the order of items in PATH
-if not contains $_asdf_shims $PATH
-    set -gx --prepend PATH $_asdf_shims
-end
-set --erase _asdf_shims
+# Language settings
 
-
-# Go
+# go
 set -x GOPATH ~/go
 set -gx PATH $PATH ~/go/bin
 
-# Rust
-set PATH $HOME/.cargo/bin $PATH
-# so rtx installs don't get warnings when upgrading
-set -x RUSTUP_INIT_SKIP_PATH_CHECK yes
-alias rust-musl-builder 'docker run --rm -it -v "$(pwd)":/home/rust/src messense/rust-musl-cross:x86_64-musl'
+# rust
+fish_add_path $HOME/.cargo/bin
 
-# Crystal
-# set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl/lib/pkgconfig"
+# crystal
+set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl/lib/pkgconfig"
 
-# bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
-
+# All other languages managed with mise
 
 
 # Fish shell customization
@@ -67,53 +42,35 @@ set -g theme_display_date no
 set -g theme_powerline_fonts yes
 
 
-# Base16 Shell
-# ok, so here's the deal.  We could set the colors inside the shell
-# but then it impacts other apps like the terminal in vscode
-# so why not just set colors in iTerm2 itself?  I used to do this
-# and thought the shell was cooler.  But now I see the problem.
-# Also, doesn't this run on init everytime?!
-# Grab `Horizon` from https://github.com/slavkobojanic/horizon-iterm
-
-# if status --is-interactive
-#  eval sh $HOME/.config/base16-shell/scripts/base16-material.sh
-# end
-
-# https://github.com/bigH/git-fuzzy
-set PATH ~/local/git-fuzzy/bin $PATH
 set -g GF_PREFERRED_PAGER "delta --theme=GitHub"
 
 
 # TODO: not automated
 # install fisher, then
-# - fisher install kidonng/zoxide.fish
-# - fisher install pure-fish/pure
-#   (tide configure)
+# - fisher install zoxide/zoxide.fish
+# ~ fisher install jorgebucaran/hydro
 
-# TODO: what is fish trying to do here?
-# if status is-interactive
-# end
+# change prompt symbol at start of line
+set --universal hydro_symbol_prompt "›"
+
 
 # better shell history with mcfly
 mcfly init fish | source
-# on a light theme, enable this
-# set -gx MCFLY_LIGHT FALSE
+set -gx MCFLY_LIGHT TRUE
 set -gx MCFLY_RESULTS 50
-set -gx MCFLY_KEY_SCHEME vim
 
 
-# homebrew (for gnu-tar at the very least)
-# set PATH /opt/homebrew/opt/gnu-tar/libexec/gnubin $PATH
+# homebrew path override for GNU tools (for gnu-tar at the very least)
+set PATH /opt/homebrew/opt/gnu-tar/libexec/gnubin $PATH
+set PATH /opt/homebrew/opt/make/libexec/gnubin:$PATH
 
-
-# curl CVE workaround, install curl 8.4.0+ with homebrew
+# curl CVE workaround
 set gnucurl (brew --prefix curl)/bin/curl
 alias curl $gnucurl
 
 # pnpm
-set -gx PNPM_HOME "~/Library/pnpm"
+set -gx PNPM_HOME "$HOME/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
-

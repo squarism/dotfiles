@@ -10,6 +10,8 @@ So this is primarily a "fresh machine" kinda of thing.
   * phoenix (ignore AeroSpace)
   * gitconfig
 
+Main system dependencies are done in `Brewfile`.  For example, things that my Fish config expects.
+
 The rest of the configs are vestigal and will be removed one day:
   * zsh
   * weechat and irssi IRC defaults.
@@ -20,13 +22,15 @@ The rest of the configs are vestigal and will be removed one day:
 
 I used to have an install script but things have simplified a bunch and I don't have CI for new boxes.
 
+Most things go in `~/.config` and this repo does not mirror a home dir necessarily.
+
 
 ## Fish
 
 I use very few fish plugins.  I find [fisher](https://github.com/jorgebucaran/fisher) to be the easiest to install and write for so that's what I use.
 
 * [zoxide](https://github.com/kidonng/zoxide.fish)
-* [pure](https://github.com/pure-fish/pure)
+* [hydro](https://github.com/jorgebucaran/hydro) - fish prompt
 * my own [lockrebase](https://github.com/squarism/lockrebase) ;)
 
 
@@ -100,4 +104,4 @@ with no process in it.
 
 ## Languages
 
-I use `asdf` for all language installers.  The list of languages is not listed here.
+I use `mise` for all language installers.  The list of languages is not listed here but attempted in `mise.toml`.

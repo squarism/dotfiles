@@ -1,0 +1,16 @@
+# keeping this list current will be hilarious
+# it's just an approximation, note how you can be very fuzzy
+
+[tools]
+bun = '1.2'
+crystal = '1.19'
+elixir = '1.19'                  # is coupled to erlang
+erlang = '28.2'
+gleam = '1.14'
+golang = '1.25'
+java = "temurin-21.0.10+7.0.LTS"
+nodejs = '22'
+python = '3.14'
+ruby = '3.4'
+rust = '1.93'
+zig = '0.15'
