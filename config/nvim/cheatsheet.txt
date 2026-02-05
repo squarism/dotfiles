@@ -1,87 +1,169 @@
+## cheatsheet @help
+open cheatsheet | <leader>?
+
+
+## which-key @help
+pause after any prefix to see options
+
+
 ## lazy.nvim @plugins @update
 open lazy ui | :Lazy
 sync (install/update/clean) | :Lazy sync
 update plugins | :Lazy update
 clean unused | :Lazy clean
-check for updates | :Lazy check
 profile startup | :Lazy profile
 
 
-## dotfiles @custom @squarism
-clear search | <leader><ESC>
-close buffer | <leader>d
-insert dev log date | <leader>N
-cheatsheet | <leader>?
-
-
-## nvim-tree @tree
-toggle | Ctrl-n
-refresh | <leader>r
-find file | <leader>n
-rename | r
-copy relative path | Y
-delete file | d
-open vertical split | C-v
-open horizontal split | C-x
-open in new tab | C-t
-show hidden files | H
-refresh | R
-collapse all | W
-
-
-## telescope
+## telescope @search @find
 find files | <leader>ff
 live grep | <leader>fg
 buffers | <leader>fb
 help tags | <leader>fh
+diagnostics | <leader>fd
+document symbols | <leader>fs
 
 
-## gitsigns @git
+## flash @navigation @jump
+jump to char | s
+jump via treesitter | S
+remote flash (operator) | r (in operator mode)
+toggle flash in search | C-s (in command mode)
+
+
+## nvim-tree @tree @files
+toggle tree | C-n
+refresh tree | <leader>r
+find current file in tree | <leader>n
+open file / expand folder | Enter
+open in vertical split | C-v
+open in horizontal split | C-x
+open in new tab | C-t
+go to parent directory | -
+cd into directory | C-]
+collapse all | W
+create file or dir (end with /) | a
+delete | d
+rename | r
+full rename (clear + type) | e
+cut | x
+copy | c
+paste | p
+copy filename | y
+copy relative path | Y
+copy absolute path | gy
+toggle hidden files | H
+toggle gitignore filter | I
+
+
+## oil @files
+open parent dir as buffer | -
+
+
+## lsp @code @navigation
+go to definition | gd
+go to implementation | gi
+references | gr
+type definition | <leader>D
+hover docs | K
+signature help | C-k
+rename symbol | <leader>rn
+code action | <leader>ca
+format buffer | <leader>f
+add workspace folder | <leader>wa
+remove workspace folder | <leader>wr
+
+
+## diagnostics @lsp @errors
+next diagnostic | ]d
+prev diagnostic | [d
+diagnostic float | <leader>e
+diagnostic list | <leader>q
+
+
+## trouble @diagnostics @errors
+all diagnostics | <leader>xx
+buffer diagnostics | <leader>xX
+symbols | <leader>xs
+lsp references | <leader>xl
+location list | <leader>xL
+quickfix list | <leader>xQ
+
+
+## treesitter @selection @textobjects
+select inside function | vif
+select around function | vaf
+select inside class | vic
+select around class | vac
+
+
+## treesitter @navigation @movement
+next function start | ]f
+next function end | ]F
+prev function start | [f
+prev function end | [F
+next class start | ]]
+next class end | ][
+prev class start | [[
+prev class end | []
+
+
+## treesitter @swap @refactor
+swap param forward | <leader>a
+swap param backward | <leader>A
+
+
+## gitsigns @git @hunk
+next hunk | ]c
+prev hunk | [c
 stage hunk | <leader>hs
 reset hunk | <leader>hr
 stage buffer | <leader>hS
 undo stage hunk | <leader>hu
 reset buffer | <leader>hR
 preview hunk | <leader>hp
-annotate | <leader>ha
-toggle current annotate | <leader>ta
+blame line (full) | <leader>ha
+toggle inline blame | <leader>ta
 diff this | <leader>hd
 diff this ~ | <leader>hD
 toggle deleted | <leader>td
+select hunk (text object) | ih
 
 
-## hop @navigation
-hop word | <SPACE><SPACE>
-hop pattern | <SPACE>s
+## surround @editing @text
+add surrounding | sa{motion}{char}
+delete surrounding | sd{char}
+replace surrounding | sr{old}{new}
 
 
-## lsp
-go to definition | gd
-go to declaration | gD
-go to implementation | gi
-references | gr
-type definition | <leader>D
-hover docs | K
-signature help | C-k
-rename | <leader>rn
-code action | <leader>ca
-format | <leader>f
-next diagnostic | ]d
-prev diagnostic | [d
-diagnostic float | <leader>e
-diagnostics list | <leader>q
+## comment @editing @text
+toggle line comment | gcc
+toggle comment (visual) | gc
 
 
-## completion @cmp
+## completion @cmp @insert
 trigger completion | C-Space
-scroll docs up | C-b
-scroll docs down | C-f
-abort | C-e
-confirm | Enter
+confirm selection | Enter
 next item | Tab
 prev item | S-Tab
+scroll docs up | C-b
+scroll docs down | C-f
+abort completion | C-e
+snippet jump next | Tab (in snippet)
+snippet jump prev | S-Tab (in snippet)
 
 
-## comment @editing
-toggle line | gcc
-toggle selection | gc
+## buffers @navigation
+next buffer | Tab
+prev buffer | S-Tab
+close buffer | <leader>d
+
+
+## terminal @toggleterm @shell
+toggle floating terminal | C-\
+lazygit | <leader>gg
+
+
+## misc @utility
+insert dev log date header | <leader>N
+auto-close brackets | (auto on insert)
+leader key | , (comma)

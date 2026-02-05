@@ -40,6 +40,5 @@ opt.incsearch = true
 opt.completeopt = { "menu", "menuone", "noselect" }
 opt.complete = ""
 
--- enable syntax and filetype
-vim.cmd("syntax enable")
+-- filetype detection (syntax highlighting handled by treesitter)
 vim.cmd("filetype plugin indent on")

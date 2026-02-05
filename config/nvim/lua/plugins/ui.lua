@@ -1,13 +1,12 @@
--- ui plugins: theme, statusline, bufferline, file tree
+-- ui plugins
 
 return {
   -- themes
   {
-    "chriskempson/base16-vim",
+    "RRethy/base16-nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.g.base16colorspace = 256
       vim.cmd("colorscheme base16-twilight")
     end,
   },
@@ -58,4 +57,19 @@ return {
 
   -- icons
   { "nvim-tree/nvim-web-devicons", lazy = true },
+
+  -- trouble (better diagnostics list)
+  {
+    "folke/trouble.nvim",
+    cmd = "Trouble",
+    keys = {
+      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "diagnostics (trouble)" },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "buffer diagnostics (trouble)" },
+      { "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "symbols (trouble)" },
+      { "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "lsp definitions/references (trouble)" },
+      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "location list (trouble)" },
+      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "quickfix list (trouble)" },
+    },
+    opts = {},
+  },
 }
