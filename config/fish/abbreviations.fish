@@ -16,6 +16,10 @@
 # abbr -a -U -- listening 'lsof -Pn -i | grep LISTEN'
 # abbr -a -U -- ls eza
 # abbr -a -U -- locate mdfind
+
+# this typo is killing me :)
+# abbr -a -U -- mist mise
+
 # abbr -a -U -- nr 'pnpm run'
 # abbr -a -U -- pr 'poetry run'
 # abbr -a -U -- random_passwd 'openssl rand -hex 16'
