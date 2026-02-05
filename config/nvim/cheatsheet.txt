@@ -1,8 +1,17 @@
+## lazy.nvim @plugins @update
+open lazy ui | :Lazy
+sync (install/update/clean) | :Lazy sync
+update plugins | :Lazy update
+clean unused | :Lazy clean
+check for updates | :Lazy check
+profile startup | :Lazy profile
+
+
 ## dotfiles @custom @squarism
 clear search | <leader><ESC>
 close buffer | <leader>d
-close buffer and leave split | <leader>D
 insert dev log date | <leader>N
+cheatsheet | <leader>?
 
 
 ## nvim-tree @tree
@@ -37,7 +46,7 @@ preview hunk | <leader>hp
 annotate | <leader>ha
 toggle current annotate | <leader>ta
 diff this | <leader>hd
-diff this ? | <leader>hD
+diff this ~ | <leader>hD
 toggle deleted | <leader>td
 
 
@@ -47,7 +56,32 @@ hop pattern | <SPACE>s
 
 
 ## lsp
-problems | ]d or [d
-errors | <leader>e
-hover signature | K
-vim.lsp.buf.definition | gd
+go to definition | gd
+go to declaration | gD
+go to implementation | gi
+references | gr
+type definition | <leader>D
+hover docs | K
+signature help | C-k
+rename | <leader>rn
+code action | <leader>ca
+format | <leader>f
+next diagnostic | ]d
+prev diagnostic | [d
+diagnostic float | <leader>e
+diagnostics list | <leader>q
+
+
+## completion @cmp
+trigger completion | C-Space
+scroll docs up | C-b
+scroll docs down | C-f
+abort | C-e
+confirm | Enter
+next item | Tab
+prev item | S-Tab
+
+
+## comment @editing
+toggle line | gcc
+toggle selection | gc
