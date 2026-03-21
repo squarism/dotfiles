@@ -3,15 +3,26 @@
 return {
   -- themes
   {
-    "RRethy/base16-nvim",
+    "loctvl842/monokai-pro.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd("colorscheme base16-twilight")
+      require("monokai-pro").setup({
+        filter = "octagon",
+        devicons = true,
+        transparent_background = false,
+        terminal_colors = true,
+        -- make certain plugin backgrounds transparent
+        background_clear = {
+          "float_win",
+          "toggleterm",
+          "telescope",
+          "which-key",
+        },
+      })
+      vim.cmd.colorscheme("monokai-pro")
     end,
   },
-  { "Shatur/neovim-ayu", lazy = true },
-  { "LunarVim/horizon.nvim", lazy = true },
 
   -- statusline
   {
@@ -19,10 +30,19 @@ return {
     event = "VeryLazy",
     opts = {
       options = {
-        theme = "seoul256",
-        icons_enabled = false,
-        section_separators = "",
-        component_separators = "",
+        theme = "monokai-pro",
+        icons_enabled = true,
+        section_separators = { left = "", right = "" },
+        component_separators = { left = "", right = "" },
+        globalstatus = true,  -- single statusline for all windows
+      },
+      sections = {
+        lualine_a = { "mode" },
+        lualine_b = { "branch", "diff" },
+        lualine_c = { { "filename", path = 1 } },  -- relative path (shortens automatically)
+        lualine_x = { "diagnostics" },
+        lualine_y = { "filetype" },
+        lualine_z = { "location" },
       },
     },
   },
@@ -50,7 +70,7 @@ return {
     },
     opts = {
       filters = {
-        dotfiles = true,
+        dotfiles = false,
       },
     },
   },
@@ -72,4 +92,13 @@ return {
     },
     opts = {},
   },
+
+  -- indent guides
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+  }
 }

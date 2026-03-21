@@ -25,12 +25,23 @@ return {
     "folke/flash.nvim",
     event = "VeryLazy",
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "flash jump" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "flash treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "remote flash" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "toggle flash search" },
+      { "<space><space>", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "flash jump" },
     },
-    opts = {},
+    opts = {
+      search = {
+        multi_window = false,  -- only current window
+        incremental = false,   -- don't update while typing
+      },
+      modes = {
+        search = { enabled = false },  -- don't hijack /
+        char = { enabled = false },    -- don't hijack f/t
+      },
+      label = {
+        uppercase = false,
+        after = true,
+        before = false,
+      },
+    },
   },
 
   -- which-key (keybinding hints)
@@ -39,6 +50,11 @@ return {
     event = "VeryLazy",
     opts = {
       preset = "minimal",
+      spec = {
+        { "<leader>f", group = "find" },
+        { "<leader>h", group = "git hunk" },
+        { "<leader>x", group = "trouble" },
+      },
     },
   },
 

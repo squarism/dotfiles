@@ -24,14 +24,12 @@ document symbols | <leader>fs
 
 
 ## flash @navigation @jump
-jump to char | s
-jump via treesitter | S
-remote flash (operator) | r (in operator mode)
-toggle flash in search | C-s (in command mode)
+toggle flash | <space> <space>
+leap style search | just start typing
 
 
 ## nvim-tree @tree @files
-toggle tree | C-n
+toggle tree | <leader>n or C-n
 refresh tree | <leader>r
 find current file in tree | <leader>n
 open file / expand folder | Enter

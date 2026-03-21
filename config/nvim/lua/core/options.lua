@@ -42,3 +42,12 @@ opt.complete = ""
 
 -- filetype detection (syntax highlighting handled by treesitter)
 vim.cmd("filetype plugin indent on")
+
+-- no autocomplete please on markdown
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- For nvim-cmp (most common completion plugin)
+    require("cmp").setup.buffer({ enabled = false })
+  end,
+})
