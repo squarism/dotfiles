@@ -3,25 +3,15 @@
 return {
   -- themes
   {
-    "loctvl842/monokai-pro.nvim",
+    "vague-theme/vague.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      require("monokai-pro").setup({
-        filter = "octagon",
-        devicons = true,
-        transparent_background = false,
-        terminal_colors = true,
-        -- make certain plugin backgrounds transparent
-        background_clear = {
-          "float_win",
-          "toggleterm",
-          "telescope",
-          "which-key",
-        },
+      require("vague").setup({
+        -- optional configuration here
       })
-      vim.cmd.colorscheme("monokai-pro")
-    end,
+      vim.cmd("colorscheme vague")
+    end
   },
 
   -- statusline
@@ -30,7 +20,7 @@ return {
     event = "VeryLazy",
     opts = {
       options = {
-        theme = "monokai-pro",
+        theme = "jellybeans",
         icons_enabled = true,
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
