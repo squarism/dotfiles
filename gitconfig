@@ -1,7 +1,6 @@
 [color]
   ui = true
 [core]
-  pager = delta
   excludesfile = ~/.gitignore.global
 [user]
 # fill this in during first run of `git` and then get rid of these
@@ -11,23 +10,13 @@
 [credential]
   helper = osxkeychain
 
-# delta config
-[interactive]
-  diffFilter = delta --color-only --features=interactive
-[delta]
-  features = decorations
-  navigate = true  # use n and N to move between diff sections
-  light = true # use false for light terms
-  tabs = 2
-  syntax-theme = GitHub
-  line-numbers = true
-[delta "interactive"]
-  keep-plus-minus-markers = false
-  
 [merge]
   conflictstyle = diff3
+
+# difftastic
 [diff]
-  colorMoved = default
+  external = difft
+
 [commit]
   verbose = true
 
