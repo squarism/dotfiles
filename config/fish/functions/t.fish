@@ -1,4 +1,5 @@
-# Defined in - @ line 0
-function t --description 'alias t exa -l -T -L 2 --header --git-ignore -I node_modules -I vendor -F -d -B --color-scale'
-	exa -l -T -L 2 --header --git-ignore -I node_modules -I vendor -F -d -B --color-scale $argv;
+function t --description 'eza-based tree'
+    set -l path (test (count $argv) -ge 1; and echo $argv[1]; or echo .)
+    set -l depth (test (count $argv) -ge 2; and echo $argv[2]; or echo 2)
+    eza -l -T --header --git-ignore -F -I node_modules -L $depth $path
 end
