@@ -111,16 +111,6 @@ return {
     },
   },
 
-  -- comments
-  {
-    "numToStr/Comment.nvim",
-    keys = {
-      { "gc", mode = { "n", "v" }, desc = "toggle comment" },
-      { "gcc", mode = "n", desc = "toggle line comment" },
-    },
-    opts = {},
-  },
-
   -- oil (file management as buffer)
   {
     "stevearc/oil.nvim",
@@ -159,7 +149,12 @@ return {
   {
     "echasnovski/mini.pairs",
     event = "InsertEnter",
-    opts = {},
+    opts = {
+      mappings = {
+        -- don't pair a backtick that follows another backtick, so ``` stays ```
+        ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^\\`].", register = { cr = false } },
+      },
+    },
   },
 
   -- mini.surround (change surrounding chars)

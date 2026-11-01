@@ -16,3 +16,6 @@ local function date_at_top()
 end
 
 map("n", "<leader>N", date_at_top, { desc = "insert dev log date" })
+
+-- muscle memory: gcc comments the selection too
+map("x", "gcc", "gc", { remap = true, desc = "toggle comment" })

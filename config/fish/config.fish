@@ -1,3 +1,7 @@
+# homebrew install
+eval (/opt/homebrew/bin/brew shellenv)
+
+# fish stuff
 source ~/.config/fish/path.fish
 source ~/.config/fish/abbreviations.fish
 
@@ -6,6 +10,9 @@ source ~/.config/fish/abbreviations.fish
 
 ulimit -n 8192
 set -gx EDITOR vim
+
+# mac's ifconfig is too noisy
+alias ip 'ifconfig | grep -E "inet |en[0-9]:" | grep -v 127.0.0.1 | awk \'{if($1 ~ /en/){iface=$1} else if($1=="inet") print iface, $2}\''
 
 # For specifics of job or project that are not interesting to anyone else
 # and more importantly not checked into the dotfiles repo.
@@ -41,6 +48,11 @@ set fish_greeting ''
 set -g theme_display_date no
 set -g theme_powerline_fonts yes
 
+# why is wezterm the only term that has a problem with the code alias?
+set -gx PATH /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin $PATH
+
+# https://github.com/bigH/git-fuzzy
+set PATH ~/local/git-fuzzy/bin $PATH
 
 set -g GF_PREFERRED_PAGER "delta --theme=GitHub"
 
@@ -58,6 +70,7 @@ set --universal hydro_symbol_prompt "›"
 mcfly init fish | source
 set -gx MCFLY_LIGHT TRUE
 set -gx MCFLY_RESULTS 50
+set -gx MCFLY_KEY_SCHEME vim
 
 
 # homebrew path override for GNU tools (for gnu-tar at the very least)
@@ -72,3 +85,5 @@ alias curl $gnucurl
 set -gx PNPM_HOME "$HOME/Library/pnpm"
 fish_add_path $PNPM_HOME/bin
 # pnpm end
+
+set -gx PATH ~/.local/bin $PATH
